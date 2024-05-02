@@ -1,7 +1,6 @@
 package MatteoOrlando.CapStone.entities;
 
 import jakarta.persistence.*;
-
 import java.util.Set;
 
 @Entity
@@ -18,6 +17,7 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private Set<Product> products;
 
+    // Getters
     public Long getId() {
         return id;
     }
