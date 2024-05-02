@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="74cc8c03-2b3e-4050-828e-20b663c47e3c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/entities/Review.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/UserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/E_Commerce_App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/entities/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/entities/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/entities/Platform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/entities/Platform.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/entities/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/entities/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/entities/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/ProductDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/ProductDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/UserDAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,19 +43,20 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Application.Application.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Entities&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/Desktop/CAPSTONE-PROJECT&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.importing&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.Application.executor": "Run",
+    "Application.E_Commerce_App.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "Services",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/user/Desktop/CAPSTONE-PROJECT",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.importing"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="CAPSTONE-PROJECT" />
