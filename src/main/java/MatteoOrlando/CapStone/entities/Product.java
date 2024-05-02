@@ -21,16 +21,16 @@ public class Product {
     @Column(nullable = false)
     private BigDecimal price;
 
-    //relazione: piú prodotti possono appartenere ad una categoria
+    // relazione: piú prodotti possono appartenere ad una categoria
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private Category category;
+    private Long category;
 
-    //relazione: piú prodotti possono essere presenti su piú piattaforme
+    // relazione: piú prodotti possono essere presenti su piú piattaforme
     @ManyToMany(mappedBy = "products")
     private Set<Platform> platforms;
 
-    //relazione: un prodotto puó essere recensito da piú utenti piú volte,
+    // relazione: un prodotto puó essere recensito da piú utenti piú volte,
     // quindi potenzialmente un prodotto puó avere piú recensioni associate
     @OneToMany(mappedBy = "product")
     private Set<Review> reviews;
@@ -53,7 +53,7 @@ public class Product {
         return price;
     }
 
-    public Category getCategory() {
+    public Long getCategory() {
         return category;
     }
 
@@ -82,7 +82,7 @@ public class Product {
         this.price = price;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(Long category) {
         this.category = category;
     }
 
