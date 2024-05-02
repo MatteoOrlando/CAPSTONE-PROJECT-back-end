@@ -14,18 +14,6 @@ public class ProductService {
     @Autowired
     private ProductDAO productRepository;
 
-    /* Transactional = Annotazione che gestisce la transazione a livello di metodo .readOnly = true per i metodi di lettura
-     migliora la performance, perché non c'è bisogno di gestire le transazioni di scrittura. (Google)
-
-    @Transactional(readOnly = true)
-    public List<Product> findAllProducts() {
-        return productRepository.findAll();
-    }*/
-
-    @Transactional(readOnly = true)
-    public List<Product> findProductsByName(String name) {
-        return productRepository.findByName(name);
-    }
 
     @Transactional(readOnly = true)
     public Product findProductById(Long id) {
@@ -52,5 +40,18 @@ public class ProductService {
     public List<Product> findProductsByPlatform(Long platformId) {
         return productRepository.findByPlatformId(platformId);
     }
+
+    /* Transactional = Annotazione che gestisce la transazione a livello di metodo .readOnly = true per i metodi di lettura
+     migliora la performance, perché non c'è bisogno di gestire le transazioni di scrittura. (Google)
+
+    @Transactional(readOnly = true)
+    public List<Product> findAllProducts() {
+        return productRepository.findAll();
+    }*/
+
+   /* @Transactional(readOnly = true)
+    public List<Product> findProductsByName(String name) {
+        return productRepository.findByName(name);
+    }*/
 }
 

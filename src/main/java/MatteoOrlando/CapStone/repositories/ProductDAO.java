@@ -13,6 +13,9 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
     @NonNull
     List<Product> findAll();*/
 
+    List<Product> findByCategoryId(Long categoryId);
+    List<Product> findByPlatformId(Long platformId);
+
     @Override
     @NonNull
     Optional<Product> findById(@NonNull Long id);
@@ -24,7 +27,4 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
     @Override
     void deleteById(@NonNull Long id);
 
-    List<Product> findByName(String name);
-    List<Product> findByCategoryId(Long categoryId);
-    List<Product> findByPlatformId(Long platformId);
 }
