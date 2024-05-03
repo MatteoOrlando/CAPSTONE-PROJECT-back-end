@@ -41,7 +41,7 @@ public class ProductService {
         return productRepository.findByPlatformId(platformId);
     }
 
-    /* Transactional = Annotazione che gestisce la transazione a livello di metodo .readOnly = true per i metodi di lettura
+    /* Transactional = Annotazione che gestisce la transazione a livello di metodo .readOnly = true, per i metodi di lettura,
      migliora la performance, perché non c'è bisogno di gestire le transazioni di scrittura. (Google)
 
     @Transactional(readOnly = true)
