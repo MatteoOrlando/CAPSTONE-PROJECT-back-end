@@ -9,8 +9,6 @@ import java.util.Optional;
 
 public interface ProductDAO extends JpaRepository<Product, Long> {
 
-
-
     List<Product> findByCategoryId(Long categoryId);
     List<Product> findByPlatformId(Long platformId);
 

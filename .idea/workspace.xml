@@ -5,9 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="74cc8c03-2b3e-4050-828e-20b663c47e3c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/ProductDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/ProductDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/UserDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controller/CategoryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controller/PlatformController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/PlatformService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controller/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/CategoryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/CategoryDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/ProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/ProductDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/CategoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/ProductService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +59,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Services",
+    "git-widget-placeholder": "Controller",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/user/Desktop/CAPSTONE-PROJECT",
     "settings.editor.selected.configurable": "reference.settings.project.maven.importing"
@@ -89,5 +97,16 @@
       <updated>1714397941331</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

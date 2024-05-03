@@ -12,9 +12,23 @@ public class CategoryService {
     @Autowired
     private CategoryDAO categoryDAO;
 
-
-    public Category getCategoryByName(String name) {
-        return categoryDAO.findByName(name);
+    public Category getCategoryById(Long id) {
+        return categoryDAO.getCategoryById(id);
     }
 
+    public List<Category> getAllCategories() {
+        return categoryDAO.getAllCategories();
+    }
+
+    public Category createCategory(Category category) {
+        return categoryDAO.saveCategory(category);
+    }
+
+    public Category updateCategory(Category category) {
+        return categoryDAO.updateCategory(category);
+    }
+
+    public void deleteCategory(Long id) {
+        categoryDAO.deleteCategory(id);
+    }
 }
