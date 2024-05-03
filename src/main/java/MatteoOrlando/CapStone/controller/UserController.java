@@ -1,3 +1,5 @@
+package MatteoOrlando.CapStone.controller;
+
 import MatteoOrlando.CapStone.entities.User;
 import MatteoOrlando.CapStone.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

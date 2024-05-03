@@ -12,6 +12,10 @@ public class OrderService {
     @Autowired
     private OrderDAO orderDAO;
 
+    public OrderService(OrderDAO orderDAO) {
+        this.orderDAO = orderDAO;
+    }
+
     public void placeOrder(Order order) {
         orderDAO.saveOrder(order);
     }
