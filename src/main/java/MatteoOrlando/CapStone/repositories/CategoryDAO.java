@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface CategoryDAO extends JpaRepository<Category, Long> {
     Category findByName(String name);
-
 }
