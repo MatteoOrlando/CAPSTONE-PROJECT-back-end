@@ -9,12 +9,15 @@ import java.util.Optional;
 
 public interface ProductDAO extends JpaRepository<Product, Long> {
 
-    /* @Override
-    @NonNull
-    List<Product> findAll();*/
+
 
     List<Product> findByCategoryId(Long categoryId);
     List<Product> findByPlatformId(Long platformId);
+
+
+    /* @Override
+    @NonNull
+    List<Product> findAll();
 
     @Override
     @NonNull
@@ -25,6 +28,6 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
     <S extends Product> S save(@NonNull S product);
 
     @Override
-    void deleteById(@NonNull Long id);
+    void deleteById(@NonNull Long id);*/
 
 }
