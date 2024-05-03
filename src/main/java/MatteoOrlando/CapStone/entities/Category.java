@@ -1,11 +1,18 @@
 package MatteoOrlando.CapStone.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Set;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "categories")
 public class Category {
+    // Setters
+    // Getters
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,29 +24,4 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private Set<Product> products;
 
-    // Getters
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Set<Product> getProducts() {
-        return products;
-    }
-
-    // Setters
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setProducts(Set<Product> products) {
-        this.products = products;
-    }
 }
