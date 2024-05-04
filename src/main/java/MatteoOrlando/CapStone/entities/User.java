@@ -1,19 +1,28 @@
 package MatteoOrlando.CapStone.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.Order;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.usertype.UserType;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 
 @Setter
 @Getter
 @Entity
 @Table(name = "users")
-public class User {
-    // Setters
-    // Getters
+@Data
+@NoArgsConstructor
+@JsonIgnoreProperties({"password", "role", "authorities", "accountNonExpired", "credentialsNonExpired", "accountNonLocked", "enabled"})
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,7 +35,10 @@ public class User {
 
     @Column(nullable = false)
     private String name;
-
+    private String surname;
+    @Enumerated(EnumType.STRING)
+    private UserType role;
+    private String avatar;
 
     @OneToMany(mappedBy = "user")
     private Set<Order> orders;
@@ -34,4 +46,40 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Review> reviews;
 
+    // Metodi di UserDetails
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + this.role.toUpperCase()));
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+
+   // public void setTemporaryAvatar() {
+   //     this.avatar = "https://ui-avatars.com/api/?name=" + this.name + "+" + this.surname;
+   // }
 }
