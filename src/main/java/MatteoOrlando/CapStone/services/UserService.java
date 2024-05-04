@@ -1,37 +1,87 @@
 package MatteoOrlando.CapStone.services;
 
+import MatteoOrlando.CapStone.dto.NewUserDTO;
 import MatteoOrlando.CapStone.entities.User;
 import MatteoOrlando.CapStone.repositories.UserDAO;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import java.io.IOException;
 
 @Service
 public class UserService {
     @Autowired
-    private UserDAO userDAO;
+    private UserDAO ud;
 
-    public List<User> findAllUser() {
-        return userDAO.findAll();
+    @Autowired
+    private PasswordEncoder bcrypt;
+
+
+    public Page<User> getUsers(int page, int size, String sortBy) {
+        if (size > 50) size = 50;
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        return this.ud.findAll(pageable);
     }
 
-    public User findUserById(Long id) {
-        return userDAO.findById(id)
-                .orElseThrow(() -> new RuntimeException("Utente con ID:" + id + " non trovato!"));
+    public User save(NewUserDTO body) {
+        this.ud.findByEmail(body.email())
+                .ifPresent(user -> {
+                    throw new BadRequestException(" email " + user.getEmail() + " already in use!");
+                });
+
+        this.ud.findByUsername(body.username())
+                .ifPresent(user -> {
+                    throw new BadRequestException(" username " + user.getUsername() + " already  in use!");
+                });
+        User newUser = new User(body.username(), body.email(), bcrypt.encode(body.password()), body.name(), body.surname());
+        return this.ud.save(newUser);
     }
 
-    public User findUserByEmail(String email) {
-        return userDAO.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Utente con Email:" + email + " non trovato!"));
+    public User findById(long id) {
+        return this.ud.findById(id).orElseThrow(() -> new NotFoundException(id));
+    }
+    public User findUserById(long id) {
+        return this.ud.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
 
-    public User saveUser(User user) {
-        return userDAO.save(user);
+    public User findByIDAndUpdate(long id, NewUserDTO body) {
+        User found = this.findById(id);
+
+        this.ud.findByEmail(body.email())
+                .ifPresent(user -> {
+                    throw new BadRequestException(" email " + user.getEmail() + " already in use!");
+                });
+
+        this.ud.findByUsername(body.username())
+                .ifPresent(user -> {
+                    throw new BadRequestException(" username " + user.getUsername() + " already  in use!");
+                });
+
+        found.setUsername(body.username());
+        found.setEmail(body.email());
+        found.setPassword(bcrypt.encode(body.password()));
+        found.setName(body.name());
+        found.setSurname(body.surname());
+        if (!found.getAvatar().contains("cloudinary")) found.setTemporaryAvatar();
+        this.ud.save(found);
+        return found;
     }
 
-    public void deleteUser(Long id) {
-        userDAO.deleteById(id);
+    public void findByIdAndDelete(long id) {
+        User found = this.findById(id);
+        this.ud.delete(found);
+    }
+
+    public User findByEmail(String email) {
+        return ud.findByEmail(email).orElseThrow(() -> new NotFoundException("User with " + email + " not found!"));
     }
 
 }
