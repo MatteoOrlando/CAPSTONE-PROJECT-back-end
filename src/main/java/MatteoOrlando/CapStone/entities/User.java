@@ -46,7 +46,6 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private Set<Review> reviews;
 
-    // Metodi di UserDetails
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
@@ -78,8 +77,10 @@ public class User implements UserDetails {
         return true;
     }
 
+    public void setTemporaryAvatar() {
+       this.avatar = "https://ui-avatars.com/api/?name=" + this.name + "+" + this.surname;
+   }
 
-   // public void setTemporaryAvatar() {
-   //     this.avatar = "https://ui-avatars.com/api/?name=" + this.name + "+" + this.surname;
-   // }
+    public void setUsername(String username) {
+    }
 }

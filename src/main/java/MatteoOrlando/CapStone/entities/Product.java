@@ -24,7 +24,7 @@ public class Product {
     // relazione: piú prodotti possono appartenere ad una categoria
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private Category category;
+    private String category;
 
     // relazione: piú prodotti possono essere presenti su piú piattaforme
     @ManyToMany(mappedBy = "products")
@@ -53,7 +53,7 @@ public class Product {
         return price;
     }
 
-    public Long getCategory() {
+    public String getCategory() {
         return category;
     }
 
@@ -82,7 +82,7 @@ public class Product {
         this.price = price;
     }
 
-    public void setCategory(Long category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
