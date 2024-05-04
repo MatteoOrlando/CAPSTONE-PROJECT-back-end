@@ -24,7 +24,7 @@ public class Product {
     // relazione: piú prodotti possono appartenere ad una categoria
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private Long category;
+    private Category category;
 
     // relazione: piú prodotti possono essere presenti su piú piattaforme
     @ManyToMany(mappedBy = "products")

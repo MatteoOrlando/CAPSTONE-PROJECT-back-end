@@ -1,6 +1,6 @@
 package MatteoOrlando.CapStone.services;
 
-import MatteoOrlando.CapStone.entities.Order;
+import MatteoOrlando.CapStone.entities.Order;;
 import MatteoOrlando.CapStone.repositories.OrderDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,27 +12,23 @@ public class OrderService {
     @Autowired
     private OrderDAO orderDAO;
 
-    public OrderService(OrderDAO orderDAO) {
-        this.orderDAO = orderDAO;
-    }
-
     public void placeOrder(Order order) {
-        orderDAO.saveOrder(order);
+        orderDAO.save(order);
     }
 
     public Order getOrderById(Long id) {
-        return orderDAO.getOrderById(id);
+        return orderDAO.findById(id).orElse(null);
     }
 
     public List<Order> getAllOrders() {
-        return orderDAO.getAllOrders();
+        return orderDAO.findAll();
     }
-    
+
     public void updateOrder(Order order) {
-        orderDAO.updateOrder(order);
+        orderDAO.save(order);
     }
 
     public void deleteOrder(Long id) {
-        orderDAO.deleteOrder(id);
+        orderDAO.deleteById(id);
     }
 }
