@@ -2,6 +2,7 @@ package MatteoOrlando.CapStone.security;
 
 
 import MatteoOrlando.CapStone.entities.User;
+import MatteoOrlando.CapStone.exceptions.UnauthorizedException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
