@@ -1,9 +1,9 @@
 package MatteoOrlando.CapStone.controllers;
 
 import MatteoOrlando.CapStone.entities.Category;
+import MatteoOrlando.CapStone.exceptions.NotFoundException;
 import MatteoOrlando.CapStone.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,34 +15,42 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    @GetMapping("/name/{name}")
+    public Category getCategoryByName(@PathVariable String name) {
+        Category category = categoryService.getCategoryByName(name);
+        if (category == null) {
+            throw new NotFoundException("Category not found with name: " + name);
+        }
+        return category;
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Category> getCategoryById(@PathVariable Long id) {
+    public Category getCategoryById(@PathVariable Long id) {
         Category category = categoryService.getCategoryById(id);
-        return ResponseEntity.ok(category);
+        if (category == null) {
+            throw new NotFoundException("Category not found with id: " + id);
+        }
+        return category;
     }
 
     @GetMapping
-    public ResponseEntity<List<Category>> getAllCategories() {
-        List<Category> categories = categoryService.getAllCategories();
-        return ResponseEntity.ok(categories);
+    public List<Category> getAllCategories() {
+        return categoryService.getAllCategories();
     }
 
     @PostMapping
-    public ResponseEntity<Category> createCategory(@RequestBody Category category) {
-        Category savedCategory = categoryService.createCategory(category);
-        return ResponseEntity.ok(savedCategory);
+    public Category createCategory(@RequestBody Category category) {
+        return categoryService.createCategory(category);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Category> updateCategory(@PathVariable Long id, @RequestBody Category category) {
+    public Category updateCategory(@PathVariable Long id, @RequestBody Category category) {
         category.setId(id);
-        Category updatedCategory = categoryService.updateCategory(category);
-        return ResponseEntity.ok(updatedCategory);
+        return categoryService.updateCategory(category);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
+    public void deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategory(id);
-        return ResponseEntity.ok().build();
     }
 }

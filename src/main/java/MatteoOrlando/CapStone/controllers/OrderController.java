@@ -16,14 +16,6 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @PostMapping
-    public void placeOrder(@RequestBody Order order) {
-        try {
-            orderService.placeOrder(order);
-        } catch (Exception ex) {
-            throw new BadRequestException("Invalid order data!");
-        }
-    }
 
     @GetMapping("/{id}")
     public Order getOrderById(@PathVariable Long id) {

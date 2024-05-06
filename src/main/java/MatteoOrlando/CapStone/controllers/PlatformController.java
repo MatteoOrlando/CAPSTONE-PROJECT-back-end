@@ -19,6 +19,10 @@ public  class PlatformController {
         return platformService.findAllPlatforms();
     }
 
+    public Platform getPlatformByName(@PathVariable String name) {
+        return platformService.findPlatformByName(name);
+    }
+
     @GetMapping("/{id}")
     public Platform getPlatformById(@PathVariable Long id) {
         return platformService.findPlatformById(id);

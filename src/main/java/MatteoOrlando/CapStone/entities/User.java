@@ -1,5 +1,6 @@
 package MatteoOrlando.CapStone.entities;
 import MatteoOrlando.CapStone.enums.UserType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -40,9 +41,11 @@ public class User implements UserDetails {
     private String avatar;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private Set<Order> orders;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private Set<Review> reviews;
 
     public User(String username, String email, String password, String name, String surname) {
@@ -63,7 +66,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.email;
+        return this.username;
     }
 
     @Override
@@ -87,9 +90,7 @@ public class User implements UserDetails {
     }
 
     public void setTemporaryAvatar() {
-       this.avatar = "https://ui-avatars.com/api/?name=" + this.name + "+" + this.surname;
+       this.avatar = "https://ui-avatars.com/api/?name=" + this.name.charAt(0) + "+" + this.surname.charAt(0);
    }
 
-    public void setUsername(String username) {
-    }
 }
