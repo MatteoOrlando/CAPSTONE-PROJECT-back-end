@@ -3,6 +3,7 @@ package MatteoOrlando.CapStone.controller;
 
 import MatteoOrlando.CapStone.dto.NewUserDTO;
 import MatteoOrlando.CapStone.entities.User;
+import MatteoOrlando.CapStone.exceptions.BadRequestException;
 import MatteoOrlando.CapStone.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

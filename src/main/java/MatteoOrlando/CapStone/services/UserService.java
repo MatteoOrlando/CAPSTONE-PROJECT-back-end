@@ -2,9 +2,11 @@ package MatteoOrlando.CapStone.services;
 
 import MatteoOrlando.CapStone.dto.NewUserDTO;
 import MatteoOrlando.CapStone.entities.User;
+import MatteoOrlando.CapStone.exceptions.NotFoundException;
 import MatteoOrlando.CapStone.repositories.UserDAO;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -34,12 +36,20 @@ public class UserService {
     public User save(NewUserDTO body) {
         this.ud.findByEmail(body.email())
                 .ifPresent(user -> {
-                    throw new BadRequestException(" email " + user.getEmail() + " already in use!");
+                    try {
+                        throw new BadRequestException(" email " + user.getEmail() + " already in use!");
+                    } catch (BadRequestException e) {
+                        throw new RuntimeException(e);
+                    }
                 });
 
         this.ud.findByUsername(body.username())
                 .ifPresent(user -> {
-                    throw new BadRequestException(" username " + user.getUsername() + " already  in use!");
+                    try {
+                        throw new BadRequestException(" username " + user.getUsername() + " already  in use!");
+                    } catch (BadRequestException e) {
+                        throw new RuntimeException(e);
+                    }
                 });
         User newUser = new User(body.username(), body.email(), bcrypt.encode(body.password()), body.name(), body.surname());
         return this.ud.save(newUser);
