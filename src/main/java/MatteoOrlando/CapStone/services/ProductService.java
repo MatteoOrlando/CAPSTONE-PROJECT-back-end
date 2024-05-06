@@ -27,11 +27,12 @@ public class ProductService {
         return productDAO.save(product);
     }
 
-    public void updateProduct(Product product) {
+    public Product updateProduct(Product product) {
         if (!productDAO.existsById(product.getId())) {
             throw new NotFoundException("Product not found with id: " + product.getId());
         }
         productDAO.save(product);
+        return product;
     }
 
     public void deleteProduct(Long id) {

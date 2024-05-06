@@ -1,10 +1,8 @@
 package MatteoOrlando.CapStone.controllers;
 
-
 import MatteoOrlando.CapStone.entities.Product;
 import MatteoOrlando.CapStone.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,44 +10,32 @@ import java.util.List;
 @RestController
 @RequestMapping("/products")
 public class ProductController {
-
     @Autowired
     private ProductService productService;
 
+    @GetMapping("/{id}")
+    public Product getProductById(@PathVariable Long id) {
+        return productService.getProductById(id);
+    }
+
     @GetMapping
-    public ResponseEntity<Product> getProductsById(@PathVariable Long id) {
-        Product product = productService.findProductById(id);
-        return  ResponseEntity.ok(product);
+    public List<Product> getAllProducts() {
+        return productService.getAllProducts();
     }
 
     @PostMapping
-    public ResponseEntity<Product> createProducts(@RequestBody Product product) {
-        Product savedProduct = productService.saveProduct(product);
-        return ResponseEntity.ok(savedProduct);
+    public Product createProduct(@RequestBody Product product) {
+        return productService.saveProduct(product);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProducts(@PathVariable Long id, @RequestBody Product product) {
-        Product updatedProduct = productService.saveProduct(product);
-        return ResponseEntity.ok(updatedProduct);
+    public Product updateProduct(@PathVariable Long id, @RequestBody Product product) {
+        product.setId(id);
+        return productService.updateProduct(product);
     }
 
-
-    @DeleteMapping("/id")
-    public ResponseEntity<?> deleteProducts(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
-        return ResponseEntity.ok("Prodotto cancellato con successo!");
-    }
-
-    @GetMapping("/category/{categoryId}")
-    public ResponseEntity<List<Product>> getProductsByCategory(@PathVariable Long categoryId) {
-        List<Product> products = productService.findProductsByCategory(categoryId);
-        return ResponseEntity.ok(products);
-    }
-
-    @GetMapping("/platform/{platformId}")
-    public ResponseEntity<List<Product>> getProductsByPlatform(@PathVariable Long platformId) {
-        List<Product> products = productService.findProductsByPlatform(platformId);
-        return ResponseEntity.ok(products);
     }
 }

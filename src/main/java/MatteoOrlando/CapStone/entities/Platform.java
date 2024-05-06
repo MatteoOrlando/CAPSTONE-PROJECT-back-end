@@ -1,11 +1,17 @@
 package MatteoOrlando.CapStone.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Set;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "platforms")
 public class Platform {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,31 +26,7 @@ public class Platform {
             joinColumns = @JoinColumn(name = "platform_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
+
     private Set<Product> products;
 
-    // Getters
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Set<Product> getProducts() {
-        return products;
-    }
-
-    // Setters
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setProducts(Set<Product> products) {
-        this.products = products;
-    }
 }
