@@ -1,12 +1,11 @@
 package MatteoOrlando.CapStone.entities;
-import MatteoOrlando.CapStone.enums;
+import MatteoOrlando.CapStone.enums.UserType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.usertype.UserType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -58,9 +57,9 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
-        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + this.role));
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role));
     }
+
 
     @Override
     public String getUsername() {

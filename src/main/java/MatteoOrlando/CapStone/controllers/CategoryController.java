@@ -1,4 +1,4 @@
-package MatteoOrlando.CapStone.controller;
+package MatteoOrlando.CapStone.controllers;
 
 import MatteoOrlando.CapStone.entities.Category;
 import MatteoOrlando.CapStone.services.CategoryService;

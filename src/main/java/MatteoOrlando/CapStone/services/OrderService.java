@@ -24,6 +24,9 @@ public class OrderService {
         return orderDAO.findAll();
     }
 
+    public boolean existsById(Long id) {
+        return orderDAO.existsById(id);
+    }
     public void updateOrder(Order order) {
         orderDAO.save(order);
     }

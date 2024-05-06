@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 public interface OrderDAO extends JpaRepository<Order, Long> {
 
-    // Qui puoi aggiungere query personalizzate se necessario
+    boolean existsById(Long id);
 }

@@ -67,12 +67,20 @@ public class UserService {
 
         this.ud.findByEmail(body.email())
                 .ifPresent(user -> {
-                    throw new BadRequestException(" email " + user.getEmail() + " already in use!");
+                    try {
+                        throw new BadRequestException(" email " + user.getEmail() + " already in use!");
+                    } catch (BadRequestException e) {
+                        throw new RuntimeException(e);
+                    }
                 });
 
         this.ud.findByUsername(body.username())
                 .ifPresent(user -> {
-                    throw new BadRequestException(" username " + user.getUsername() + " already  in use!");
+                    try {
+                        throw new BadRequestException(" username " + user.getUsername() + " already  in use!");
+                    } catch (BadRequestException e) {
+                        throw new RuntimeException(e);
+                    }
                 });
 
         found.setUsername(body.username());

@@ -1,8 +1,7 @@
-package MatteoOrlando.CapStone.controller;
+package MatteoOrlando.CapStone.controllers;
 
 
 import MatteoOrlando.CapStone.entities.Product;
-import MatteoOrlando.CapStone.repositories.ProductDAO;
 import MatteoOrlando.CapStone.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +36,7 @@ public class ProductController {
 
 
     @DeleteMapping("/id")
-    public  ResponseEntity<?> deleteProducts(@PathVariable Long id) {
+    public ResponseEntity<?> deleteProducts(@PathVariable Long id) {
         productService.deleteProduct(id);
         return ResponseEntity.ok("Prodotto cancellato con successo!");
     }
