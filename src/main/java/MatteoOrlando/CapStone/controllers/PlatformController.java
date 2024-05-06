@@ -22,7 +22,7 @@ public  class PlatformController {
     @GetMapping("/{id}")
     public Platform getPlatformById(@PathVariable Long id) {
         return platformService.findPlatformById(id);
-        }
+    }
 
     @PostMapping
     public Platform createPlatform(@RequestBody Platform platform) {
