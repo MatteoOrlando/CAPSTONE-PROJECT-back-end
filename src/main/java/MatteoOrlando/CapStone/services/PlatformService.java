@@ -14,26 +14,26 @@ import java.util.Optional;
 public class PlatformService {
 
     @Autowired
-    private PlatformDAO platformRepository;
+    private PlatformDAO platformDAO;
 
     public Platform findPlatformByName(String name) {
-        return platformRepository.findByName(name)
+        return platformDAO.findByName(name)
                 .orElseThrow(() -> new NotFoundException("Nome piattaforma non trovato: " + name));
     }
     public List<Platform> findAllPlatforms() {
-        return platformRepository.findAll();
+        return platformDAO.findAll();
     }
 
     public Platform findPlatformById(Long id) {
-        return platformRepository.findById(id)
+        return platformDAO.findById(id)
                 .orElseThrow(() -> new RuntimeException("ID piattaforma non trovato: " + id));
     }
 
     public Platform savePlatform(Platform platform) {
-        return platformRepository.save(platform);
+        return platformDAO.save(platform);
     }
 
     public void deletePlatform(Long id) {
-        platformRepository.deleteById(id);
+        platformDAO.deleteById(id);
     }
 }
