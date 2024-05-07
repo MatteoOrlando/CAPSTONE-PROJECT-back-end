@@ -5,26 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="74cc8c03-2b3e-4050-828e-20b663c47e3c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/dto/AdminLoginDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/CategoryController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/PlatformController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/PlatformController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/entities/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/entities/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/entities/Review.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/entities/Review.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/exceptions/ErrorsDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/exceptions/ExceptionsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/exceptions/ExceptionsHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/CategoryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/CategoryDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/PlatformDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/PlatformDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/dto/AdminLoginDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/OrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/OrderDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/ProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/ProductDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/security/JWTFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/security/JWTFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/CategoryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/PlatformService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/PlatformService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/ReviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/ReviewService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,12 +33,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "MatteoOrlando"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;MatteoOrlando&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -92,7 +81,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Develop",
+    "git-widget-placeholder": "Controller",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/user/Desktop/epicode-it-u5-d11-0723-main",
     "settings.editor.selected.configurable": "preferences.rainbow.brackets.disable.when"

@@ -33,7 +33,7 @@ public class OrderController {
 
     @PutMapping("/{id}")
     public void updateOrder(@PathVariable Long id, @RequestBody Order order) {
-        if (!orderService.existsById(id)) {
+        if (orderService.existsById(id)) {
             throw new NotFoundException(id);
         }
         try {
@@ -46,9 +46,10 @@ public class OrderController {
 
     @DeleteMapping("/{id}")
     public void deleteOrder(@PathVariable Long id) {
-        if (!orderService.existsById(id)) {
+        if (orderService.existsById(id)) {
             throw new NotFoundException(id);
         }
         orderService.deleteOrder(id);
     }
+
 }

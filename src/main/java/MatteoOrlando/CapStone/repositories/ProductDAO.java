@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface ProductDAO extends JpaRepository<Product, Long> {
     List<Product> findByCategoryId(Long categoryId);
-    List<Product> findByPlatformsId(Long platformId);
-}
+    List<Product> findByNameContainingIgnoreCase(String name);
+
+    }
+

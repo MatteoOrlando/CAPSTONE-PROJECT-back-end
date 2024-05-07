@@ -14,10 +14,6 @@ public class OrderService {
     @Autowired
     private OrderDAO orderDAO;
 
-    public void placeOrder(Order order) {
-        orderDAO.save(order);
-    }
-
     public Order getOrderById(Long id) {
         return orderDAO.findById(id).orElseThrow(() -> new NotFoundException("Order not found with id: " + id));
     }
@@ -39,5 +35,15 @@ public class OrderService {
         }
         orderDAO.deleteById(id);
     }
+
+    public boolean existsById(Long id) {
+        if (!orderDAO.existsById(id)) {
+            throw new NotFoundException("order with id: " + id + " not found!");
+
+    }
+        return orderDAO.existsById(id);
+    }
 }
+
+
 
