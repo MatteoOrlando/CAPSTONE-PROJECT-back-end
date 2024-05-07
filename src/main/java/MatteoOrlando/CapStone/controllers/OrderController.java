@@ -44,7 +44,6 @@ public class OrderController {
         }
     }
 
-    // Cancella un ordine specifico per ID
     @DeleteMapping("/{id}")
     public void deleteOrder(@PathVariable Long id) {
         if (!orderService.existsById(id)) {
