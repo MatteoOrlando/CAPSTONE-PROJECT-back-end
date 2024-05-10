@@ -2,7 +2,7 @@ package MatteoOrlando.CapStone.security;
 
 import MatteoOrlando.CapStone.entities.User;
 import MatteoOrlando.CapStone.exceptions.UnauthorizedException;
-import MatteoOrlando.CapStone.services.UserService;;
+import MatteoOrlando.CapStone.services.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

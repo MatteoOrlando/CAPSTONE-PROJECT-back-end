@@ -1,6 +1,7 @@
 package MatteoOrlando.CapStone.exceptions;
 
 import MatteoOrlando.CapStone.dto.ErrorsDTO;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -18,7 +19,7 @@ public class ExceptionsHandler {
     public ErrorsDTO handleBadRequest(BadRequestException ex) {
         if (ex.getErrorList() != null) {
             String message = ex.getErrorList().stream()
-                    .map(objectError -> objectError.getDefaultMessage())
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
                     .collect(Collectors.joining(". "));
             return new ErrorsDTO(message, LocalDateTime.now());
         } else {
