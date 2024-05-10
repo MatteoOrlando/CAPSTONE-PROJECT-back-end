@@ -29,11 +29,24 @@ public class UserController {
         return this.us.getUsers(page, size, sortBy);
     }
 
+    @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @ResponseStatus(HttpStatus.CREATED)
+    public User createUserAsAdmin(@RequestBody @Validated NewUserDTO body, BindingResult validation) {
+        if (validation.hasErrors()) {
+            throw new BadRequestException(validation.getAllErrors());
+        }
+        body.setRole("ADMIN");
+        return us.createUser(body);
+    }
+
+
     @GetMapping("/{userId}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public User findUserById(@PathVariable long userId) {
         return us.findById(userId);
     }
+
 
     @PutMapping("/{userId}")
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -43,6 +56,7 @@ public class UserController {
         }
         return us.findByIDAndUpdate(userId, body);
     }
+
     @DeleteMapping("/me")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProfile(@AuthenticationPrincipal User currentUser) {

@@ -27,9 +27,13 @@ public class SecurityConfig {
         httpSecurity.csrf(http -> http.disable());
         httpSecurity.sessionManagement(http -> http.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         httpSecurity.cors(Customizer.withDefaults());
-        httpSecurity.authorizeHttpRequests(http -> http.requestMatchers("/**").permitAll());
+        httpSecurity.authorizeHttpRequests(auth -> auth
+                .requestMatchers("/auth/**").permitAll()                    // Permette l'accesso a tutti agli endpoint di autenticazione
+                .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")    // Richiede il ruolo ADMIN per accedere agli endpoint admin
+                .anyRequest().authenticated());                                      // Richiede l'autenticazione per tutte le altre richieste
         return httpSecurity.build();
     }
+
 
     @Bean
     PasswordEncoder getBCrypt() {

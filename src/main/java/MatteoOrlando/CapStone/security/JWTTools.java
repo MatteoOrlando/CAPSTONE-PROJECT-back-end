@@ -24,7 +24,6 @@ public class JWTTools {
                 .compact();
     }
 
-
     public void verifyToken(String token) {
         try {
             Jwts.parser()
