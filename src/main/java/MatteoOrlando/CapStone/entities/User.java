@@ -48,13 +48,13 @@ public class User implements UserDetails {
     @JsonIgnore
     private Set<Review> reviews;
 
-    public User(String username, String email, String password, String name, String surname) {
+    public User(String username, String email, String password, String name, String surname, UserType role) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.name = name;
         this.surname = surname;
-        this.role = UserType.USER;
+        this.role = role;
         setTemporaryAvatar();
     }
 

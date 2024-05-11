@@ -1,10 +1,16 @@
 package MatteoOrlando.CapStone.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+
 import MatteoOrlando.CapStone.entities.Category;
+import MatteoOrlando.CapStone.exceptions.BadRequestException;
 import MatteoOrlando.CapStone.exceptions.NotFoundException;
 import MatteoOrlando.CapStone.services.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,17 +45,28 @@ public class CategoryController {
     }
 
     @PostMapping
-    public Category createCategory(@RequestBody Category category) {
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Category createCategory(@RequestBody @Validated Category category, BindingResult validation) {
+        if (validation.hasErrors()) {
+            throw new BadRequestException("Invalid category data provided.");
+        }
         return categoryService.createCategory(category);
     }
 
     @PutMapping("/{id}")
-    public Category updateCategory(@PathVariable Long id, @RequestBody Category category) {
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public Category updateCategory(@PathVariable Long id, @RequestBody @Validated Category category, BindingResult validation) {
+        if (validation.hasErrors()) {
+            throw new BadRequestException("Invalid category data provided.");
+        }
         category.setId(id);
         return categoryService.updateCategory(category);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategory(id);
     }

@@ -18,10 +18,15 @@ public record NewUserDTO(@NotEmpty(message = "Username is required!")
                          String name,
                          @NotEmpty(message = "surname is required!")
                          @Size(min = 2, max = 15, message = " your surname must be  between 3 and 15 characters!")
-                         String surname) {
+                         String surname)
+{
 
 
-    private static Enum<UserType> role = UserType.USER;
+    private static UserType role;
+
+    /*public NewUserDTO {
+        role = UserType.USER;
+    }*/
 
     public String getUsername() {
         return username;
@@ -52,7 +57,10 @@ public record NewUserDTO(@NotEmpty(message = "Username is required!")
     }
 
     public UserType getRole() {
-        return (UserType) role;
+        return role;
     }
 
+    public UserType userType() {
+        return role;
+    }
 }

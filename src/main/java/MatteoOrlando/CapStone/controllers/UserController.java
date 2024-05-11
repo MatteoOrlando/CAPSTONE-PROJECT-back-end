@@ -29,15 +29,24 @@ public class UserController {
         return this.us.getUsers(page, size, sortBy);
     }
 
-    @PostMapping
+    @PostMapping("/normal")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @ResponseStatus(HttpStatus.CREATED)
+    public User createNormalUser(@RequestBody @Validated NewUserDTO body, BindingResult validation) {
+        if (validation.hasErrors()) {
+            throw new BadRequestException(validation.getAllErrors());
+        }
+        return us.createUser(body);
+    }
+
+    @PostMapping("/admin")
     @PreAuthorize("hasAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public User createUserAsAdmin(@RequestBody @Validated NewUserDTO body, BindingResult validation) {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         }
-        body.setRole("ADMIN");
-        return us.createUser(body);
+        return us.createUserAsAdmin(body);
     }
 
 

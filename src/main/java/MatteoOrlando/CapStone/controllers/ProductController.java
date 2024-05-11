@@ -1,10 +1,14 @@
 package MatteoOrlando.CapStone.controllers;
 
 import MatteoOrlando.CapStone.entities.Product;
-import MatteoOrlando.CapStone.services.ProductService;
-import MatteoOrlando.CapStone.exceptions.NotFoundException;
 import MatteoOrlando.CapStone.exceptions.BadRequestException;
+import MatteoOrlando.CapStone.exceptions.NotFoundException;
+import MatteoOrlando.CapStone.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,16 +47,19 @@ public class ProductController {
     }
 
     @PostMapping
-    public Product createProduct(@RequestBody Product product) {
-        if (product == null || product.getName() == null || product.getPrice() == null) {
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Product createProduct(@RequestBody @Validated Product product, BindingResult validation) {
+        if (validation.hasErrors() || product.getName() == null || product.getPrice() == null) {
             throw new BadRequestException("Invalid product data provided.");
         }
         return productService.createProduct(product);
     }
 
     @PutMapping("/{id}")
-    public Product updateProduct(@PathVariable Long id, @RequestBody Product product) {
-        if (productService.existsById(id)) {
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public Product updateProduct(@PathVariable Long id, @RequestBody @Validated Product product, BindingResult validation) {
+        if (validation.hasErrors() || productService.existsById(id)) {
             throw new NotFoundException("Cannot update product. No product found with id: " + id);
         }
         product.setId(id);
@@ -60,6 +67,8 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProduct(@PathVariable Long id) {
         if (productService.existsById(id)) {
             throw new NotFoundException("Cannot delete product. No product found with id: " + id);
@@ -67,3 +76,4 @@ public class ProductController {
         productService.deleteProduct(id);
     }
 }
+

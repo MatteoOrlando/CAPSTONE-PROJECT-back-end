@@ -53,7 +53,7 @@ public class ProductService {
     }
 
     public boolean existsById(Long id) {
-        return productDAO.existsById(id);
+        return !productDAO.existsById(id);
     }
 }
 

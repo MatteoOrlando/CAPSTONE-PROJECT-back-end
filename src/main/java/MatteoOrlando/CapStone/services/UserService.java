@@ -26,6 +26,31 @@ public class UserService {
     private PasswordEncoder bcrypt;
 
 
+    public User createUser(NewUserDTO body) {
+        User user = new User();
+        user.setUsername(body.getUsername());
+        user.setEmail(body.getEmail());
+        PasswordEncoder passwordEncoder = passwordEncoder();
+        String encodedPassword = passwordEncoder.encode(body.getPassword());
+        user.setPassword(encodedPassword);
+        user.setName(body.getName());
+        user.setSurname(body.getSurname());
+        user.setRole(body.getRole());
+        return this.ud.save(user);
+    }
+
+    public User createUserAsAdmin(NewUserDTO body) {
+        User newUser = new User();
+        newUser.setUsername(body.getUsername());
+        newUser.setEmail(body.getEmail());
+        newUser.setPassword(bcrypt.encode(body.getPassword()));
+        newUser.setName(body.getName());
+        newUser.setSurname(body.getSurname());
+        newUser.setRole(body.getRole());
+
+        return ud.save(newUser);
+    }
+
     public Page<User> getUsers(int page, int size, String sortBy) {
         if (size > 50) size = 50;
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
@@ -50,13 +75,14 @@ public class UserService {
                         throw new RuntimeException(e);
                     }
                 });
-        User newUser = new User(body.username(), body.email(), bcrypt.encode(body.password()), body.name(), body.surname());
+        User newUser = new User(body.username(), body.email(), bcrypt.encode(body.password()), body.name(), body.surname(), body.userType());
         return this.ud.save(newUser);
     }
 
     public User findById(long id) {
         return this.ud.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
+
     public User findUserById(long id) {
         return this.ud.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
@@ -92,42 +118,20 @@ public class UserService {
         return found;
     }
 
+
     public void findByIdAndDelete(long id) {
         User found = this.findById(id);
         this.ud.delete(found);
     }
 
+
     public User findByEmail(String email) {
         return ud.findByEmail(email).orElseThrow(() -> new NotFoundException("User with " + email + " not found!"));
     }
 
-    public User createUser(NewUserDTO body) {
-        User user = new User();
-        user.setUsername(body.getUsername());
-        user.setEmail(body.getEmail());
-        PasswordEncoder passwordEncoder = passwordEncoder();
-        String encodedPassword = passwordEncoder.encode(body.getPassword());
-        user.setPassword(encodedPassword);
-        user.setName(body.getName());
-        user.setSurname(body.getSurname());
-        user.setRole(body.getRole());
-       return this.ud.save(user);
-    }
 
     private PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    public User createUserAsAdmin(NewUserDTO body) {
-
-        User newUser = new User();
-        newUser.setUsername(body.getUsername());
-        newUser.setEmail(body.getEmail());
-        newUser.setPassword(bcrypt.encode(body.getPassword()));
-        newUser.setName(body.getName());
-        newUser.setSurname(body.getSurname());
-        newUser.setRole(UserType.ADMIN);
-
-        return ud.save(newUser);
-    }
 }

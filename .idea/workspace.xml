@@ -5,15 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="74cc8c03-2b3e-4050-828e-20b663c47e3c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/configuration/DatabaseSeeder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/CategoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/PlatformController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/PlatformController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/dto/AdminLoginDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/OrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/OrderDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/ProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/ProductDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/dto/NewUserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/dto/NewUserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/security/JWTTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/security/JWTTools.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/security/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/ReviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/ReviewService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,24 +72,24 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Application.Application.executor": "Run",
-    "Application.E_Commerce_App.executor": "Run",
-    "RunOnceActivity.CodyAccountHistoryMigration": "true",
-    "RunOnceActivity.CodyConvertUrlToCodebaseName": "true",
-    "RunOnceActivity.CodyHistoryLlmMigration": "true",
-    "RunOnceActivity.CodyProjectSettingsMigration": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Controller",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/user/Desktop/epicode-it-u5-d11-0723-main",
-    "settings.editor.selected.configurable": "preferences.rainbow.brackets.disable.when"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Application.Application.executor&quot;: &quot;Run&quot;,
+    &quot;Application.E_Commerce_App.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.CodyAccountHistoryMigration&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.CodyConvertUrlToCodebaseName&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.CodyHistoryLlmMigration&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.CodyProjectSettingsMigration&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Controller&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/Desktop/epicode-it-u5-d11-0723-main&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.rainbow.brackets.disable.when&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="MatteoOrlando.CapStone.exceptions" />
