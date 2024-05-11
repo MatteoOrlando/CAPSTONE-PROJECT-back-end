@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 
-import MatteoOrlando.CapStone.entities.Category;
+import MatteoOrlando.CapStone.dto.CategoryDTO;
 import MatteoOrlando.CapStone.exceptions.BadRequestException;
 import MatteoOrlando.CapStone.exceptions.NotFoundException;
 import MatteoOrlando.CapStone.services.CategoryService;
@@ -22,46 +22,37 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping("/name/{name}")
-    public Category getCategoryByName(@PathVariable String name) {
-        Category category = categoryService.getCategoryByName(name);
-        if (category == null) {
-            throw new NotFoundException("Category not found with name: " + name);
-        }
-        return category;
+    public CategoryDTO getCategoryByName(@PathVariable String name) {
+        return categoryService.getCategoryByName(name);
     }
 
     @GetMapping("/{id}")
-    public Category getCategoryById(@PathVariable Long id) {
-        Category category = categoryService.getCategoryById(id);
-        if (category == null) {
-            throw new NotFoundException("Category not found with id: " + id);
-        }
-        return category;
+    public CategoryDTO getCategoryById(@PathVariable Long id) {
+        return categoryService.getCategoryById(id);
     }
 
     @GetMapping
-    public List<Category> getAllCategories() {
+    public List<CategoryDTO> getAllCategories() {
         return categoryService.getAllCategories();
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
-    public Category createCategory(@RequestBody @Validated Category category, BindingResult validation) {
+    public CategoryDTO createCategory(@RequestBody @Validated CategoryDTO categoryDTO, BindingResult validation) {
         if (validation.hasErrors()) {
             throw new BadRequestException("Invalid category data provided.");
         }
-        return categoryService.createCategory(category);
+        return categoryService.createCategory(categoryDTO);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public Category updateCategory(@PathVariable Long id, @RequestBody @Validated Category category, BindingResult validation) {
+    public CategoryDTO updateCategory(@PathVariable Long id, @RequestBody @Validated CategoryDTO categoryDTO, BindingResult validation) {
         if (validation.hasErrors()) {
             throw new BadRequestException("Invalid category data provided.");
         }
-        category.setId(id);
-        return categoryService.updateCategory(category);
+        return categoryService.updateCategory(id, categoryDTO);
     }
 
     @DeleteMapping("/{id}")
@@ -71,3 +62,4 @@ public class CategoryController {
         categoryService.deleteCategory(id);
     }
 }
+

@@ -5,7 +5,6 @@ import MatteoOrlando.CapStone.entities.User;
 import MatteoOrlando.CapStone.enums.UserType;
 import MatteoOrlando.CapStone.exceptions.NotFoundException;
 import MatteoOrlando.CapStone.repositories.UserDAO;
-import ch.qos.logback.classic.encoder.JsonEncoder;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -48,13 +47,17 @@ public class UserService {
         newUser.setSurname(body.getSurname());
         newUser.setRole(body.getRole());
 
-        return ud.save(newUser);
+        return this.ud.save(newUser);
     }
 
     public Page<User> getUsers(int page, int size, String sortBy) {
         if (size > 50) size = 50;
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
         return this.ud.findAll(pageable);
+    }
+
+    private void setUserRole(User user, boolean isAdmin) {
+        user.setRole(isAdmin ? UserType.ADMIN : UserType.USER);
     }
 
     public User save(NewUserDTO body) {
@@ -128,7 +131,6 @@ public class UserService {
     public User findByEmail(String email) {
         return ud.findByEmail(email).orElseThrow(() -> new NotFoundException("User with " + email + " not found!"));
     }
-
 
     private PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

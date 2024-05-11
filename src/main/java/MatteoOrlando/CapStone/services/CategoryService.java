@@ -1,13 +1,14 @@
 package MatteoOrlando.CapStone.services;
 
+import MatteoOrlando.CapStone.dto.CategoryDTO;
 import MatteoOrlando.CapStone.entities.Category;
 import MatteoOrlando.CapStone.exceptions.NotFoundException;
-
 import MatteoOrlando.CapStone.repositories.CategoryDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
@@ -15,29 +16,48 @@ public class CategoryService {
     @Autowired
     private CategoryDAO categoryDAO;
 
-    public Category getCategoryByName(String name) {
-        return categoryDAO.findByName(name)
+    private CategoryDTO convertToDTO(Category category) {
+        return new CategoryDTO(category.getId(), category.getName());
+    }
+
+    private Category convertToEntity(CategoryDTO categoryDTO) {
+        Category category = new Category();
+        category.setId(categoryDTO.id());
+        category.setName(categoryDTO.name());
+        return category;
+    }
+
+    public CategoryDTO getCategoryByName(String name) {
+        Category category = categoryDAO.findByName(name)
                 .orElseThrow(() -> new NotFoundException("Category not found with name: " + name));
+        return convertToDTO(category);
     }
 
-    public Category getCategoryById(Long id) {
-        return categoryDAO.findById(id)
+    public CategoryDTO getCategoryById(Long id) {
+        Category category = categoryDAO.findById(id)
                 .orElseThrow(() -> new NotFoundException("Category not found with id: " + id));
+        return convertToDTO(category);
     }
 
-    public List<Category> getAllCategories() {
-        return categoryDAO.findAll();
+    public List<CategoryDTO> getAllCategories() {
+        List<Category> categories = categoryDAO.findAll();
+        return categories.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    public Category createCategory(Category category) {
-        return categoryDAO.save(category);
+    public CategoryDTO createCategory(CategoryDTO categoryDTO) {
+        Category category = convertToEntity(categoryDTO);
+        Category savedCategory = categoryDAO.save(category);
+        return convertToDTO(savedCategory);
     }
 
-    public Category updateCategory(Category category) {
-        if (!categoryDAO.existsById(category.getId())) {
-            throw new NotFoundException("Cannot update category. No category found with id: " + category.getId());
+    public CategoryDTO updateCategory(Long id, CategoryDTO categoryDTO) {
+        if (!categoryDAO.existsById(id)) {
+            throw new NotFoundException("Cannot update category. No category found with id: " + id);
         }
-        return categoryDAO.save(category);
+        Category category = convertToEntity(categoryDTO);
+        category.setId(id);
+        Category updatedCategory = categoryDAO.save(category);
+        return convertToDTO(updatedCategory);
     }
 
     public void deleteCategory(Long id) {
@@ -47,3 +67,4 @@ public class CategoryService {
         categoryDAO.deleteById(id);
     }
 }
+

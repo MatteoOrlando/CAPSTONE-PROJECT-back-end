@@ -18,11 +18,10 @@ public record NewUserDTO(@NotEmpty(message = "Username is required!")
                          String name,
                          @NotEmpty(message = "surname is required!")
                          @Size(min = 2, max = 15, message = " your surname must be  between 3 and 15 characters!")
-                         String surname)
+                         String surname,
+                         UserType role)
 {
 
-
-    private static UserType role;
 
     /*public NewUserDTO {
         role = UserType.USER;
@@ -48,13 +47,13 @@ public record NewUserDTO(@NotEmpty(message = "Username is required!")
         return surname;
     }
 
-    public void setRole(String admin) {
+    /* public void setRole(String admin) {
         if (admin.equals("true")) {
             role = UserType.ADMIN;
         } else {
             role = UserType.USER;
         }
-    }
+    }*/
 
     public UserType getRole() {
         return role;
