@@ -37,7 +37,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public CategoryDTO createCategory(@RequestBody @Validated CategoryDTO categoryDTO, BindingResult validation) {
         if (validation.hasErrors()) {
@@ -47,7 +47,7 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public CategoryDTO updateCategory(@PathVariable Long id, @RequestBody @Validated CategoryDTO categoryDTO, BindingResult validation) {
         if (validation.hasErrors()) {
             throw new BadRequestException("Invalid category data provided.");
@@ -56,7 +56,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategory(id);

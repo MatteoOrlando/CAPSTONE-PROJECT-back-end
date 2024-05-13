@@ -36,7 +36,7 @@ public class PlatformController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public PlatformDTO createPlatform(@RequestBody @Validated PlatformDTO platformDTO, BindingResult validation) {
         if (validation.hasErrors()) {
@@ -46,7 +46,7 @@ public class PlatformController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public PlatformDTO updatePlatform(@PathVariable Long id, @RequestBody @Validated PlatformDTO platformDTO, BindingResult validation) {
         if (validation.hasErrors()) {
             throw new BadRequestException("Invalid platform data provided.");
@@ -55,7 +55,7 @@ public class PlatformController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePlatform(@PathVariable Long id) {
         platformService.deletePlatform(id);

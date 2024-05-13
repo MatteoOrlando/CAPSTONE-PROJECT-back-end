@@ -21,7 +21,7 @@ public class UserController {
     private UserService us;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public Page<User> getAllUsers(@RequestParam(defaultValue = "0") int page,
                                   @RequestParam(defaultValue = "10") int size,
                                   @RequestParam(defaultValue = "id") String sortBy) {
@@ -29,14 +29,14 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/role")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public UserType getUserRole(@PathVariable long userId) {
         User user = us.findById(userId);
         return user.getRole();
     }
 
     @PostMapping("/normal")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public User createNormalUser(@RequestBody @Validated NewUserDTO body, BindingResult validation) {
         if (validation.hasErrors()) {
@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @PostMapping("/admin")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public User createUserAsAdmin(@RequestBody @Validated NewUserDTO body, BindingResult validation) {
         if (validation.hasErrors()) {
@@ -56,13 +56,13 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public User findUserById(@PathVariable long userId) {
         return us.findById(userId);
     }
 
     @PutMapping("/{userId}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public User findUserByIdAndUpdate(@PathVariable long userId, @RequestBody @Validated NewUserDTO body, BindingResult validation) {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
@@ -77,14 +77,14 @@ public class UserController {
     }
 
     @DeleteMapping("/{userId}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void findUserByIdAndDelete(@PathVariable long userId) {
         us.findByIdAndDelete(userId);
     }
 
     @GetMapping("/email/{email}")
-    @PreAuthorize("hasAuthority('ADMIN') or #email == principal.username")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') or #email == principal.username")
     public User getUserByEmail(@PathVariable String email) {
         User user = us.findByEmail(email);
         if (user == null) {
