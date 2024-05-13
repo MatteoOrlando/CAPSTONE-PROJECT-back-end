@@ -23,10 +23,6 @@ public record NewUserDTO(@NotEmpty(message = "Username is required!")
 {
 
 
-    /*public NewUserDTO {
-        role = UserType.USER;
-    }*/
-
     public String getUsername() {
         return username;
     }
@@ -47,17 +43,10 @@ public record NewUserDTO(@NotEmpty(message = "Username is required!")
         return surname;
     }
 
-    /* public void setRole(String admin) {
-        if (admin.equals("true")) {
-            role = UserType.ADMIN;
-        } else {
-            role = UserType.USER;
-        }
-    }*/
 
-    public UserType getRole() {
-        return role;
-    }
+   /* public String getRole() {
+        return role.toString();
+    }*/
 
     public UserType userType() {
         return role;

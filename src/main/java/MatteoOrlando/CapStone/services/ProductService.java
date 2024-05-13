@@ -1,12 +1,16 @@
 package MatteoOrlando.CapStone.services;
 
+import MatteoOrlando.CapStone.dto.ProductDTO;
 import MatteoOrlando.CapStone.entities.Product;
+import MatteoOrlando.CapStone.entities.Category;
 import MatteoOrlando.CapStone.exceptions.NotFoundException;
 import MatteoOrlando.CapStone.repositories.ProductDAO;
+import MatteoOrlando.CapStone.repositories.CategoryDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -14,35 +18,65 @@ public class ProductService {
     @Autowired
     private ProductDAO productDAO;
 
-    public Product getProductById(Long id) {
-        return productDAO.findById(id).orElseThrow(() -> new NotFoundException("Product not found with id: " + id));
+    @Autowired
+    private CategoryDAO categoryDAO;
+
+    private ProductDTO convertToDTO(Product product) {
+        return new ProductDTO(product.getId(), product.getName(), product.getDescription(), product.getPrice(), product.getCategory().getId());
     }
 
-    public List<Product> getProductsByName(String name) {
+    private Product convertToEntity(ProductDTO productDTO) {
+        Product product = new Product();
+        product.setId(productDTO.id());
+        product.setName(productDTO.name());
+        product.setDescription(productDTO.description());
+        product.setPrice(productDTO.price());
+
+        Category category = categoryDAO.findById(productDTO.categoryId())
+                .orElseThrow(() -> new NotFoundException("Category not found with id: " + productDTO.categoryId()));
+        product.setCategory(category);
+
+        return product;
+    }
+
+    public ProductDTO getProductById(Long id) {
+        Product product = productDAO.findById(id)
+                .orElseThrow(() -> new NotFoundException("Product not found with id: " + id));
+        return convertToDTO(product);
+    }
+
+    public List<ProductDTO> getProductsByName(String name) {
         List<Product> products = productDAO.findByNameContainingIgnoreCase(name);
         if (products.isEmpty()) {
             throw new NotFoundException("No products found with name: " + name);
         }
-        return products;
+        return products.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    public List<Product> getByCategoryId(Long categoryId) {
-        return productDAO.findByCategoryId(categoryId);
+    public List<ProductDTO> getByCategoryId(Long categoryId) {
+        List<Product> products = productDAO.findByCategoryId(categoryId);
+        return products.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    public List<Product> getAllProducts() {
-        return productDAO.findAll();
+    public List<ProductDTO> getAllProducts() {
+        List<Product> products = productDAO.findAll();
+        return products.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    public Product createProduct(Product product) {
-        return productDAO.save(product);
+    public ProductDTO createProduct(ProductDTO productDTO) {
+        Product product = convertToEntity(productDTO);
+        Product savedProduct = productDAO.save(product);
+        return convertToDTO(savedProduct);
     }
 
-    public Product updateProduct(Product product) {
-        if (!productDAO.existsById(product.getId())) {
-            throw new NotFoundException("Cannot update product. No product found with id: " + product.getId());
+    public ProductDTO updateProduct(Long id, ProductDTO productDTO) {
+        if (!productDAO.existsById(id)) {
+            throw new NotFoundException("Cannot update product. No product found with id: " + id);
         }
-        return productDAO.save(product);
+        Product product = convertToEntity(productDTO);
+        product.setId(id);
+        Product updatedProduct = productDAO.save(product);
+        return convertToDTO(updatedProduct);
     }
 
     public void deleteProduct(Long id) {
@@ -52,8 +86,7 @@ public class ProductService {
         productDAO.deleteById(id);
     }
 
-    public boolean existsById(Long id) {
-        return !productDAO.existsById(id);
-    }
+    /* public boolean existsById(Long id) {
+        return productDAO.existsById(id);
+    }*/
 }
-

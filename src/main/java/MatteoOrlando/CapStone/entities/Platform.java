@@ -19,14 +19,15 @@ public class Platform {
     @Column(nullable = false)
     private String name;
 
-    //relazione: piú prodotti (stesso titolo) possono essere presenti su piú piattaforme da gioco
     @ManyToMany
     @JoinTable(
             name = "platforms_products",
             joinColumns = @JoinColumn(name = "platform_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-
     private Set<Product> products;
 
+    // Costruttore vuoto
+    public Platform() {
+    }
 }

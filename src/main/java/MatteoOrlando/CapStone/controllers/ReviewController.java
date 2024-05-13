@@ -1,8 +1,12 @@
 package MatteoOrlando.CapStone.controllers;
 
-import MatteoOrlando.CapStone.entities.Review;
+import MatteoOrlando.CapStone.dto.ReviewDTO;
+import MatteoOrlando.CapStone.exceptions.BadRequestException;
 import MatteoOrlando.CapStone.services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,22 +19,29 @@ public class ReviewController {
     private ReviewService reviewService;
 
     @PostMapping
-    public Review createReview(@RequestBody Review review) {
-        return reviewService.saveReview(review);
+    @ResponseStatus(HttpStatus.CREATED)
+    public ReviewDTO createReview(@RequestBody @Validated ReviewDTO reviewDTO, BindingResult validation) {
+        if (validation.hasErrors()) {
+            throw new BadRequestException("Invalid review data provided.");
+        }
+        return reviewService.saveReview(reviewDTO);
     }
 
     @GetMapping("/product/{productId}")
-    public List<Review> getReviewsByProductId(@PathVariable Long productId) {
+    public List<ReviewDTO> getReviewsByProductId(@PathVariable Long productId) {
         return reviewService.getReviewsByProductId(productId);
     }
 
     @PutMapping("/{id}")
-    public Review updateReview(@PathVariable Long id, @RequestBody Review review) {
-        review.setId(id);
-        return reviewService.updateReview(review);
+    public ReviewDTO updateReview(@PathVariable Long id, @RequestBody @Validated ReviewDTO reviewDTO, BindingResult validation) {
+        if (validation.hasErrors()) {
+            throw new BadRequestException("Invalid review data provided.");
+        }
+        return reviewService.updateReview(id, reviewDTO);
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteReview(@PathVariable Long id) {
         reviewService.deleteReview(id);
     }

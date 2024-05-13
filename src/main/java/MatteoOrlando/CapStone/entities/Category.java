@@ -19,7 +19,6 @@ public class Category {
     @Column(nullable = false)
     private String name;
 
-    //relazione: una categoria/genere, puó avere piú titoli, ma solo un titolo puó appartenere ad un genere
     @OneToMany(mappedBy = "category")
     private Set<Product> products;
 

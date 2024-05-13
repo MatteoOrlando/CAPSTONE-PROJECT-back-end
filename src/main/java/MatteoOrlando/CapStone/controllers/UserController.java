@@ -2,6 +2,7 @@ package MatteoOrlando.CapStone.controllers;
 
 import MatteoOrlando.CapStone.dto.NewUserDTO;
 import MatteoOrlando.CapStone.entities.User;
+import MatteoOrlando.CapStone.enums.UserType;
 import MatteoOrlando.CapStone.exceptions.BadRequestException;
 import MatteoOrlando.CapStone.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,13 @@ public class UserController {
                                   @RequestParam(defaultValue = "10") int size,
                                   @RequestParam(defaultValue = "id") String sortBy) {
         return this.us.getUsers(page, size, sortBy);
+    }
+
+    @GetMapping("/{userId}/role")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public UserType getUserRole(@PathVariable long userId) {
+        User user = us.findById(userId);
+        return user.getRole();
     }
 
     @PostMapping("/normal")

@@ -1,12 +1,12 @@
 package MatteoOrlando.CapStone.controllers;
 
-import MatteoOrlando.CapStone.entities.Product;
+import MatteoOrlando.CapStone.dto.ProductDTO;
 import MatteoOrlando.CapStone.exceptions.BadRequestException;
 import MatteoOrlando.CapStone.exceptions.NotFoundException;
 import MatteoOrlando.CapStone.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -16,64 +16,53 @@ import java.util.List;
 @RestController
 @RequestMapping("/products")
 public class ProductController {
+
     @Autowired
     private ProductService productService;
 
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable Long id) {
-        Product product = productService.getProductById(id);
-        if (product == null) {
-            throw new NotFoundException("Product not found with id: " + id);
-        }
-        return product;
-    }
-
-    @GetMapping("/category/{categoryId}")
-    public List<Product> getByCategoryId(@PathVariable Long categoryId) {
-        List<Product> products = productService.getByCategoryId(categoryId);
-        if (products.isEmpty()) {
-            throw new NotFoundException("No products found for category ID: " + categoryId);
-        }
-        return products;
+    public ProductDTO getProductById(@PathVariable Long id) {
+        return productService.getProductById(id);
     }
 
     @GetMapping("/name/{name}")
-    public List<Product> getProductsByName(@PathVariable String name) {
-        List<Product> products = productService.getProductsByName(name);
-        if (products.isEmpty()) {
-            throw new NotFoundException("No products found with name: " + name);
-        }
-        return products;
+    public List<ProductDTO> getProductsByName(@PathVariable String name) {
+        return productService.getProductsByName(name);
+    }
+
+    @GetMapping("/category/{categoryId}")
+    public List<ProductDTO> getByCategoryId(@PathVariable Long categoryId) {
+        return productService.getByCategoryId(categoryId);
+    }
+
+    @GetMapping
+    public List<ProductDTO> getAllProducts() {
+        return productService.getAllProducts();
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
-    public Product createProduct(@RequestBody @Validated Product product, BindingResult validation) {
-        if (validation.hasErrors() || product.getName() == null || product.getPrice() == null) {
+    public ProductDTO createProduct(@RequestBody @Validated ProductDTO productDTO, BindingResult validation) {
+        if (validation.hasErrors()) {
             throw new BadRequestException("Invalid product data provided.");
         }
-        return productService.createProduct(product);
+        return productService.createProduct(productDTO);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public Product updateProduct(@PathVariable Long id, @RequestBody @Validated Product product, BindingResult validation) {
-        if (validation.hasErrors() || productService.existsById(id)) {
-            throw new NotFoundException("Cannot update product. No product found with id: " + id);
+    public ProductDTO updateProduct(@PathVariable Long id, @RequestBody @Validated ProductDTO productDTO, BindingResult validation) {
+        if (validation.hasErrors()) {
+            throw new BadRequestException("Invalid product data provided.");
         }
-        product.setId(id);
-        return productService.updateProduct(product);
+        return productService.updateProduct(id, productDTO);
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProduct(@PathVariable Long id) {
-        if (productService.existsById(id)) {
-            throw new NotFoundException("Cannot delete product. No product found with id: " + id);
-        }
         productService.deleteProduct(id);
     }
 }
-

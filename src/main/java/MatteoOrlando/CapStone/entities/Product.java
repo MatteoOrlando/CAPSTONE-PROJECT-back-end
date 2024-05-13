@@ -33,4 +33,7 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private Set<Review> reviews;
 
+    // Costruttore vuoto
+    public Product() {
+    }
 }

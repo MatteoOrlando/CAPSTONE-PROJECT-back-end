@@ -1,10 +1,13 @@
 package MatteoOrlando.CapStone.controllers;
 
-import MatteoOrlando.CapStone.entities.Order;
+import MatteoOrlando.CapStone.dto.OrderDTO;
 import MatteoOrlando.CapStone.exceptions.BadRequestException;
 import MatteoOrlando.CapStone.exceptions.NotFoundException;
 import MatteoOrlando.CapStone.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,40 +19,36 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-
     @GetMapping("/{id}")
-    public Order getOrderById(@PathVariable Long id) {
-        Order order = orderService.getOrderById(id);
-        if (order == null) {
-            throw new NotFoundException(id);
-        }
-        return order;
+    public OrderDTO getOrderById(@PathVariable Long id) {
+        return orderService.getOrderById(id);
     }
 
     @GetMapping
-    public List<Order> getAllOrders() {
+    public List<OrderDTO> getAllOrders() {
         return orderService.getAllOrders();
     }
 
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public OrderDTO createOrder(@RequestBody @Validated OrderDTO orderDTO, BindingResult validation) {
+        if (validation.hasErrors()) {
+            throw new BadRequestException("Invalid order data provided.");
+        }
+        return orderService.createOrder(orderDTO);
+    }
+
     @PutMapping("/{id}")
-    public void updateOrder(@PathVariable Long id, @RequestBody Order order) {
-        if (orderService.existsById(id)) {
-            throw new NotFoundException(id);
+    public OrderDTO updateOrder(@PathVariable Long id, @RequestBody @Validated OrderDTO orderDTO, BindingResult validation) {
+        if (validation.hasErrors()) {
+            throw new BadRequestException("Invalid order data provided.");
         }
-        try {
-            order.setId(id);
-            orderService.updateOrder(order);
-        } catch (Exception ex) {
-            throw new BadRequestException("Invalid order data for update!");
-        }
+        return orderService.updateOrder(id, orderDTO);
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteOrder(@PathVariable Long id) {
-        if (orderService.existsById(id)) {
-            throw new NotFoundException(id);
-        }
         orderService.deleteOrder(id);
     }
-
 }
