@@ -1,6 +1,5 @@
 package MatteoOrlando.CapStone.controllers;
 
-
 import MatteoOrlando.CapStone.dto.NewUserDTO;
 import MatteoOrlando.CapStone.entities.User;
 import MatteoOrlando.CapStone.exceptions.BadRequestException;
@@ -20,7 +19,6 @@ public class UserController {
     @Autowired
     private UserService us;
 
-
     @GetMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public Page<User> getAllUsers(@RequestParam(defaultValue = "0") int page,
@@ -36,7 +34,7 @@ public class UserController {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         }
-        return us.createUser(body);
+        return us.createUser(body, false);
     }
 
     @PostMapping("/admin")
@@ -46,16 +44,14 @@ public class UserController {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         }
-        return us.createUserAsAdmin(body);
+        return us.createUserAsAdmin(body, true);
     }
-
 
     @GetMapping("/{userId}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public User findUserById(@PathVariable long userId) {
         return us.findById(userId);
     }
-
 
     @PutMapping("/{userId}")
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -89,3 +85,4 @@ public class UserController {
         return user;
     }
 }
+

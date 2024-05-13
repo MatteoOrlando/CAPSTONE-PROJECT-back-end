@@ -24,8 +24,7 @@ public class UserService {
     @Autowired
     private PasswordEncoder bcrypt;
 
-
-    public User createUser(NewUserDTO body) {
+    public User createUser(NewUserDTO body, boolean isAdmin) {
         User user = new User();
         user.setUsername(body.getUsername());
         user.setEmail(body.getEmail());
@@ -34,19 +33,18 @@ public class UserService {
         user.setPassword(encodedPassword);
         user.setName(body.getName());
         user.setSurname(body.getSurname());
-        user.setRole(body.getRole());
+        setUserRole(user, isAdmin);
         return this.ud.save(user);
     }
 
-    public User createUserAsAdmin(NewUserDTO body) {
+    public User createUserAsAdmin(NewUserDTO body, boolean isAdmin) {
         User newUser = new User();
         newUser.setUsername(body.getUsername());
         newUser.setEmail(body.getEmail());
         newUser.setPassword(bcrypt.encode(body.getPassword()));
         newUser.setName(body.getName());
         newUser.setSurname(body.getSurname());
-        newUser.setRole(body.getRole());
-
+        setUserRole(newUser, isAdmin);
         return this.ud.save(newUser);
     }
 
@@ -121,12 +119,10 @@ public class UserService {
         return found;
     }
 
-
     public void findByIdAndDelete(long id) {
         User found = this.findById(id);
         this.ud.delete(found);
     }
-
 
     public User findByEmail(String email) {
         return ud.findByEmail(email).orElseThrow(() -> new NotFoundException("User with " + email + " not found!"));
@@ -135,5 +131,4 @@ public class UserService {
     private PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }
