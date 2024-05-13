@@ -99,6 +99,13 @@
 			<version>3.1.0</version>
 		</dependency>
 
+		<!--RUNTIME (Runner) DEPENDENCIES-->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
