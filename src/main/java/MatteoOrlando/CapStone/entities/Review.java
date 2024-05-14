@@ -1,24 +1,26 @@
 package MatteoOrlando.CapStone.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Date;
 
 @Setter
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "reviews")
+@Data
 public class Review {
-
+    // Getter e Setter se non usi Lombok
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
+    private String content;
+
+    @Column(nullable = false)
+    private int rating;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -28,13 +30,10 @@ public class Review {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    @Column(nullable = false)
-    private String content;
+    public Object getText() {
+        return content;
+    }
 
-    @Column(nullable = false)
-    private int rating;
-
-    @Column(name = "review_date")
-    private Date reviewDate;
-
+    public void setText(String reviewText) {
+    }
 }

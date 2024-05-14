@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 public record ProductDTO(
         Long id,
@@ -17,7 +18,10 @@ public record ProductDTO(
         @NotNull(message = "Price is required")
         @DecimalMin(value = "0.01", message = "Price must be greater than 0")
         BigDecimal price,
-        @NotNull(message = "Category ID is required")
-        Long categoryId
+        @NotNull(message = "Categories are required")
+        Set<Long> categoryIds,
+        Set<String> reviews,
+        Set<String> platforms
 ) {
 }
+

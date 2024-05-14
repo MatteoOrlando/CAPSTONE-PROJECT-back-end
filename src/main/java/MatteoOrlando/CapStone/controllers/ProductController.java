@@ -23,7 +23,7 @@ public class ProductController {
     @PostMapping
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductDTO createProduct(@RequestBody @Validated ProductDTO productDTO, BindingResult validation) {
+    private ProductDTO createProduct(@RequestBody @Validated ProductDTO productDTO, BindingResult validation) {
         if (validation.hasErrors()) {
             throw new BadRequestException("Invalid product data provided.");
         }

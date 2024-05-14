@@ -3,13 +3,18 @@ package MatteoOrlando.CapStone.services;
 import MatteoOrlando.CapStone.dto.ProductDTO;
 import MatteoOrlando.CapStone.entities.Product;
 import MatteoOrlando.CapStone.entities.Category;
+import MatteoOrlando.CapStone.entities.Review;
+import MatteoOrlando.CapStone.entities.Platform;
 import MatteoOrlando.CapStone.exceptions.NotFoundException;
 import MatteoOrlando.CapStone.repositories.ProductDAO;
 import MatteoOrlando.CapStone.repositories.CategoryDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,7 +27,27 @@ public class ProductService {
     private CategoryDAO categoryDAO;
 
     private ProductDTO convertToDTO(Product product) {
-        return new ProductDTO(product.getId(), product.getName(), product.getDescription(), product.getPrice(), product.getCategory().getId());
+        Set<Long> categoryIds = product.getCategories().stream()
+                .map(Category::getId)
+                .collect(Collectors.toSet());
+
+        Set<String> reviews = product.getReviews().stream()
+                .map(Review::getContent)
+                .collect(Collectors.toSet());
+
+        Set<String> platforms = product.getPlatforms().stream()
+                .map(Platform::getName)
+                .collect(Collectors.toSet());
+
+        return new ProductDTO(
+                product.getId(),
+                product.getName(),
+                product.getDescription(),
+                product.getPrice(),
+                categoryIds,
+                reviews,
+                platforms
+        );
     }
 
     private Product convertToEntity(ProductDTO productDTO) {
@@ -32,9 +57,32 @@ public class ProductService {
         product.setDescription(productDTO.description());
         product.setPrice(productDTO.price());
 
-        Category category = categoryDAO.findById(productDTO.categoryId())
-                .orElseThrow(() -> new NotFoundException("Category not found with id: " + productDTO.categoryId()));
-        product.setCategory(category);
+        // Convert categoryIds to Category entities
+        Set<Category> categories = productDTO.categoryIds().stream()
+                .map(id -> categoryDAO.findById(id)
+                        .orElseThrow(() -> new NotFoundException("Category not found with id: " + id)))
+                .collect(Collectors.toSet());
+        product.setCategories(categories);
+
+        // Convert reviews to Review entities
+        Set<Review> reviews = productDTO.reviews().stream()
+                .map(reviewText -> {
+                    Review review = new Review();
+                    review.setContent(reviewText);
+                    review.setProduct(product);  // Set the product reference
+                    return review;
+                }).collect(Collectors.toSet());
+        product.setReviews(reviews);
+
+        // Convert platforms to Platform entities
+        Set<Platform> platforms = productDTO.platforms().stream()
+                .map(platformName -> {
+                    Platform platform = new Platform();
+                    platform.setName(platformName);
+                    platform.getProducts().add(product);  // Add the product reference
+                    return platform;
+                }).collect(Collectors.toSet());
+        product.setPlatforms(platforms);
 
         return product;
     }
@@ -86,7 +134,53 @@ public class ProductService {
         productDAO.deleteById(id);
     }
 
-    /* public boolean existsById(Long id) {
-        return productDAO.existsById(id);
-    }*/
+    // Metodo per creare un prodotto con categorie, recensioni e piattaforme
+    private Product createProduct(String name, String description, BigDecimal price, Set<Long> categoryIds, List<String> reviews, List<String> platforms) {
+        Product product = new Product();
+        product.setName(name);
+        product.setDescription(description);
+        product.setPrice(price);
+
+        // Convert categoryIds to Category entities
+        Set<Category> categories = categoryIds.stream()
+                .map(id -> categoryDAO.findById(id)
+                        .orElseThrow(() -> new NotFoundException("Category not found with id: " + id)))
+                .collect(Collectors.toSet());
+        product.setCategories(categories);
+
+        // Convert reviews to Review entities
+        Set<Review> reviewEntities = reviews.stream()
+                .map(reviewText -> {
+                    Review review = new Review();
+                    review.setContent(reviewText);
+                    review.setProduct(product);
+                    return review;
+                }).collect(Collectors.toSet());
+        product.setReviews(reviewEntities);
+
+        // Convert platforms to Platform entities
+        Set<Platform> platformEntities = platforms.stream()
+                .map(platformName -> {
+                    Platform platform = new Platform();
+                    platform.setName(platformName);
+                    platform.getProducts().add(product);
+                    return platform;
+                }).collect(Collectors.toSet());
+        product.setPlatforms(platformEntities);
+
+        return product;
+    }
+
+    // Metodo per popolare il database con i prodotti di esempio
+    public void seedProducts() {
+        if (productDAO.count() == 0) {  // Verifica se il database ha meno di 100 prodotti
+            List<Product> products = Arrays.asList(
+                    createProduct("The Witcher 3: Wild Hunt", "Un gioco di ruolo open-world ambientato in un universo fantasy", new BigDecimal("39.99"), Set.of(1L), List.of("Un capolavoro del genere RPG.", "Un mondo vasto e immersivo."), List.of("PC", "PS4", "Xbox One")),
+                    createProduct("Call of Duty: Future Warfare", "Uno sparatutto in prima persona ambientato in un futuro distopico", new BigDecimal("69.99"), Set.of(3L), List.of("Azione frenetica e adrenalinica.", "Grafica mozzafiato."), List.of("PC", "PS5", "Xbox Series X"))
+            );
+
+            productDAO.saveAll(products);
+        }
+    }
 }
+
