@@ -28,9 +28,14 @@ public class SecurityConfig {
         httpSecurity.cors(Customizer.withDefaults());
         httpSecurity.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll()
-                .requestMatchers("/categories/**").permitAll()                           // Permette l'accesso a tutti agli endpoint di autenticazione
-                .requestMatchers("/users/admin/**").hasAuthority("ROLE_ADMIN")     // Richiede il ruolo ADMIN per accedere agli endpoint admin
-                .anyRequest().authenticated());                                             // Richiede l'autenticazione per tutte le altre richieste
+                .requestMatchers("/products/**").permitAll()
+                .requestMatchers("/categories/**").permitAll()
+                .requestMatchers("/platforms/**").permitAll()
+                .requestMatchers("/review/**").permitAll()
+                .requestMatchers("/orders/**").permitAll()
+                .requestMatchers("/users/admin/**").permitAll()
+
+                .anyRequest().authenticated());
         return httpSecurity.build();
     }
 

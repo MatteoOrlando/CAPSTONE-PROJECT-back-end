@@ -27,7 +27,6 @@ public class Platform {
     )
     private Set<Product> products;
 
-    // Costruttore vuoto
     public Platform() {
     }
 }

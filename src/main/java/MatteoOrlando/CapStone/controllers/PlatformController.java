@@ -20,6 +20,16 @@ public class PlatformController {
     @Autowired
     private PlatformService platformService;
 
+    @PostMapping
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @ResponseStatus(HttpStatus.CREATED)
+    public PlatformDTO createPlatform(@RequestBody @Validated PlatformDTO platformDTO, BindingResult validation) {
+        if (validation.hasErrors()) {
+            throw new BadRequestException("Invalid platform data provided.");
+        }
+        return platformService.savePlatform(platformDTO);
+    }
+
     @GetMapping("/{id}")
     public PlatformDTO getPlatformById(@PathVariable Long id) {
         return platformService.findPlatformById(id);
@@ -35,15 +45,7 @@ public class PlatformController {
         return platformService.findAllPlatforms();
     }
 
-    @PostMapping
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @ResponseStatus(HttpStatus.CREATED)
-    public PlatformDTO createPlatform(@RequestBody @Validated PlatformDTO platformDTO, BindingResult validation) {
-        if (validation.hasErrors()) {
-            throw new BadRequestException("Invalid platform data provided.");
-        }
-        return platformService.savePlatform(platformDTO);
-    }
+
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")

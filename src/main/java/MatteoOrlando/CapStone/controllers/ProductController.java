@@ -20,26 +20,6 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/{id}")
-    public ProductDTO getProductById(@PathVariable Long id) {
-        return productService.getProductById(id);
-    }
-
-    @GetMapping("/name/{name}")
-    public List<ProductDTO> getProductsByName(@PathVariable String name) {
-        return productService.getProductsByName(name);
-    }
-
-    @GetMapping("/category/{categoryId}")
-    public List<ProductDTO> getByCategoryId(@PathVariable Long categoryId) {
-        return productService.getByCategoryId(categoryId);
-    }
-
-    @GetMapping
-    public List<ProductDTO> getAllProducts() {
-        return productService.getAllProducts();
-    }
-
     @PostMapping
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
@@ -65,4 +45,26 @@ public class ProductController {
     public void deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
     }
+
+    @GetMapping("/{id}")
+    public ProductDTO getProductById(@PathVariable Long id) {
+        return productService.getProductById(id);
+    }
+
+    @GetMapping("/name/{name}")
+    public List<ProductDTO> getProductsByName(@PathVariable String name) {
+        return productService.getProductsByName(name);
+    }
+
+    @GetMapping("/category/{categoryId}")
+    public List<ProductDTO> getByCategoryId(@PathVariable Long categoryId) {
+        return productService.getByCategoryId(categoryId);
+    }
+
+    @GetMapping
+    public List<ProductDTO> getAllProducts() {
+        return productService.getAllProducts();
+    }
+
+
 }

@@ -44,9 +44,9 @@ public record NewUserDTO(@NotEmpty(message = "Username is required!")
     }
 
 
-   /* public String getRole() {
+    public String getRole() {
         return role.toString();
-    }*/
+    }
 
     public UserType userType() {
         return role;
