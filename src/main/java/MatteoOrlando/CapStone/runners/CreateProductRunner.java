@@ -1,4 +1,4 @@
-/* package MatteoOrlando.CapStone.runners;
+/*package MatteoOrlando.CapStone.runners;
 
 import MatteoOrlando.CapStone.entities.Category;
 import MatteoOrlando.CapStone.entities.Product;
@@ -12,13 +12,13 @@ import java.math.BigDecimal;
 import java.util.Random;
 
 @Component
-public class ProductRunner implements ApplicationRunner {
+public class CreateProductRunner implements ApplicationRunner {
     @Autowired
     private ProductDAO productDAO;
     @Override
     public void run(ApplicationArguments args) throws Exception {
         Random random = new Random();
-        for (int i = 1; i <= 50; i++) {
+        for (int i = 1; i <= 10; i++) {
             Product product = new Product();
             product.setName("Product " + i);
             product.setDescription("Description for Product " + i);
