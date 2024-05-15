@@ -49,7 +49,7 @@ public class UserService {
     }
 
     public Page<User> getUsers(int page, int size, String sortBy) {
-        if (size > 50) size = 50;
+        if (size > 20) size = 20;
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
         return this.ud.findAll(pageable);
     }
