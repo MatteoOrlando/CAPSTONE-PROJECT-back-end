@@ -22,8 +22,11 @@ public class ProductService {
     @Autowired
     private CategoryDAO categoryDAO;
 
+    @Autowired
+    private PlatformService platformService;
+
     private ProductDTO convertToDTO(Product product) {
-        return new ProductDTO(product.getId(), product.getName(), product.getDescription(), product.getPrice(), product.getCategory().getId());
+        return new ProductDTO(product.getId(), product.getName(), product.getDescription(), product.getPrice(), product.getCategory().getId(), product.getPlatforms());
     }
 
     private Product convertToEntity(ProductDTO productDTO) {
@@ -32,6 +35,8 @@ public class ProductService {
         product.setName(productDTO.name());
         product.setDescription(productDTO.description());
         product.setPrice(productDTO.price());
+
+        //product.setPlatforms(productDTO.getPlatformsByIds(productDTO.platforms()));
 
         Category category = categoryDAO.findById(productDTO.categoryId())
                 .orElseThrow(() -> new NotFoundException("Category not found with id: " + productDTO.categoryId()));

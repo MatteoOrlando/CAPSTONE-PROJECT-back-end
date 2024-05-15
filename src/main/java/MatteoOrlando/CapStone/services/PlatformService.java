@@ -4,10 +4,12 @@ import MatteoOrlando.CapStone.dto.PlatformDTO;
 import MatteoOrlando.CapStone.entities.Platform;
 import MatteoOrlando.CapStone.exceptions.NotFoundException;
 import MatteoOrlando.CapStone.repositories.PlatformDAO;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,4 +68,5 @@ public class PlatformService {
         }
         platformDAO.deleteById(id);
     }
+
 }
