@@ -18,6 +18,7 @@ public record ProductDTO(
         @DecimalMin(value = "0.01", message = "Price must be greater than 0")
         BigDecimal price,
         @NotNull(message = "Category ID is required")
-        Long categoryId
-) {
+        Long categoryId,
+        @NotNull(message = "Platform is required")
+        java.util.Set<MatteoOrlando.CapStone.entities.Platform> platforms) {
 }
