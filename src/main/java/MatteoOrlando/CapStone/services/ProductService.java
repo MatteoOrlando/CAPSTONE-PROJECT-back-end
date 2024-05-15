@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -85,6 +86,19 @@ public class ProductService {
         }
         productDAO.deleteById(id);
     }
+
+    /*public Category findOrCreateCategory(String categoryName) {
+        // Cerca
+        Optional<Category> existingCategory = categoryDAO.findByName(categoryName);
+        if (existingCategory.isPresent()) {
+            return existingCategory.get();
+        } else {
+            // Se non esiste, crea
+            Category newCategory = new Category();
+            newCategory.setName(categoryName);
+            return categoryDAO.save(newCategory);  // Salva
+        }
+    }*/
 
     /* public boolean existsById(Long id) {
         return productDAO.existsById(id);
