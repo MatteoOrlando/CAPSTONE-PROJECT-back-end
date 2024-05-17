@@ -37,7 +37,7 @@ public class DatabaseSeeder implements CommandLineRunner {
     }
 
     private void seedProducts() {
-        if (productDAO.count() == 1000) {  // Verifica se il database è già popolato
+        if (productDAO.count() == 1000) {  // Verifico se il database è già popolato
             List<Product> products = Arrays.asList(
                     createProduct("The Witcher 3: Wild Hunt", "Immergiti nell'universo vasto e ricco di storie di The Witcher 3: Wild Hunt. Questo gioco di ruolo open-world ti porta in un mondo fantasy pieno di pericolose creature, incantesimi potenti e decisioni morali complesse. Sviluppato con una grafica mozzafiato e un gameplay profondo che ti tiene incollato allo schermo per ore.", new BigDecimal("39.99"), "Giochi di ruolo"),
                     createProduct("FIFA 24", "FIFA 24 porta l'esperienza calcistica a un nuovo livello con miglioramenti grafici, modalità di gioco rinnovate e un'IA avanzata. Sperimenta la gioia del calcio giocando con le squadre aggiornate, nelle leghe più famose del mondo e in stadi incredibilmente realistici.", new BigDecimal("59.99"), "Sport"),
@@ -141,10 +141,10 @@ public class DatabaseSeeder implements CommandLineRunner {
 
     private Set<Review> createReviews() {
         Set<Review> reviews = new HashSet<>();
-        // Aggiungi recensioni di esempio o implementa una logica simile a quella delle piattaforme per la creazione dinamica
+
         Review review = new Review();
         review.setContent("Great game!");
-        // Imposta altri attributi necessari e salva nel DAO se richiesto
+
         reviews.add(review);
         return reviews;
     }
