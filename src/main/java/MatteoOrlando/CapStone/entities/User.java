@@ -64,6 +64,7 @@ public class User implements UserDetails {
         return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role));
     }
 
+
     @Override
     public String getUsername() {
         return this.username;

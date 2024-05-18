@@ -27,6 +27,7 @@ public class SecurityConfig {
         httpSecurity.sessionManagement(http -> http.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         httpSecurity.cors(Customizer.withDefaults());
         httpSecurity.authorizeHttpRequests(auth -> auth
+                //.requestMatchers("/setup/**").permitAll() // Permetti l'accesso agli endpoint di setup
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/products/**").permitAll()
                 .requestMatchers("/categories/**").permitAll()
@@ -34,7 +35,6 @@ public class SecurityConfig {
                 .requestMatchers("/review/**").permitAll()
                 .requestMatchers("/orders/**").permitAll()
                 .requestMatchers("/users/admin/**").permitAll()
-
                 .anyRequest().authenticated());
         return httpSecurity.build();
     }
@@ -47,13 +47,11 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-
         config.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
         config.setAllowedMethods(Arrays.asList("*"));
         config.setAllowedHeaders(Arrays.asList("*"));
         UrlBasedCorsConfigurationSource src = new UrlBasedCorsConfigurationSource();
         src.registerCorsConfiguration("/**", config);
-
         return src;
     }
 }

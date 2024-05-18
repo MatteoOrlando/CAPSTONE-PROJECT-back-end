@@ -43,7 +43,6 @@ public record NewUserDTO(@NotEmpty(message = "Username is required!")
         return surname;
     }
 
-
     public String getRole() {
         return role.toString();
     }

@@ -1,16 +1,18 @@
 package MatteoOrlando.CapStone.services;
 
 import MatteoOrlando.CapStone.dto.ProductDTO;
+import MatteoOrlando.CapStone.entities.Platform;
 import MatteoOrlando.CapStone.entities.Product;
 import MatteoOrlando.CapStone.entities.Category;
 import MatteoOrlando.CapStone.exceptions.NotFoundException;
 import MatteoOrlando.CapStone.repositories.ProductDAO;
 import MatteoOrlando.CapStone.repositories.CategoryDAO;
+import MatteoOrlando.CapStone.repositories.PlatformDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,10 +25,17 @@ public class ProductService {
     private CategoryDAO categoryDAO;
 
     @Autowired
-    private PlatformService platformService;
+    private PlatformDAO platformDAO;
 
     private ProductDTO convertToDTO(Product product) {
-        return new ProductDTO(product.getId(), product.getName(), product.getDescription(), product.getPrice(), product.getCategory().getId(), product.getPlatforms());
+        return new ProductDTO(
+                product.getId(),
+                product.getName(),
+                product.getDescription(),
+                product.getPrice(),
+                product.getCategory().getId(),
+                product.getPlatforms()
+        );
     }
 
     private Product convertToEntity(ProductDTO productDTO) {
@@ -36,11 +45,15 @@ public class ProductService {
         product.setDescription(productDTO.description());
         product.setPrice(productDTO.price());
 
-        //product.setPlatforms(productDTO.getPlatformsByIds(productDTO.platforms()));
-
         Category category = categoryDAO.findById(productDTO.categoryId())
                 .orElseThrow(() -> new NotFoundException("Category not found with id: " + productDTO.categoryId()));
         product.setCategory(category);
+
+        Set<Platform> platforms = productDTO.platforms().stream()
+                .map(platformDTO -> platformDAO.findById(platformDTO.getId())
+                        .orElseThrow(() -> new NotFoundException("Platform not found with id: " + platformDTO.getId())))
+                .collect(Collectors.toSet());
+        product.setPlatforms(platforms);
 
         return product;
     }
@@ -91,21 +104,4 @@ public class ProductService {
         }
         productDAO.deleteById(id);
     }
-
-    /*public Category findOrCreateCategory(String categoryName) {
-        // Cerca
-        Optional<Category> existingCategory = categoryDAO.findByName(categoryName);
-        if (existingCategory.isPresent()) {
-            return existingCategory.get();
-        } else {
-            // Se non esiste, crea
-            Category newCategory = new Category();
-            newCategory.setName(categoryName);
-            return categoryDAO.save(newCategory);  // Salva
-        }
-    }*/
-
-    /* public boolean existsById(Long id) {
-        return productDAO.existsById(id);
-    }*/
 }

@@ -21,7 +21,7 @@ public class UserController {
     private UserService us;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public Page<User> getAllUsers(@RequestParam(defaultValue = "0") int page,
                                   @RequestParam(defaultValue = "10") int size,
                                   @RequestParam(defaultValue = "id") String sortBy) {
@@ -33,6 +33,14 @@ public class UserController {
     public UserType getUserRole(@PathVariable long userId) {
         User user = us.findById(userId);
         return user.getRole();
+    }
+
+    @PostMapping("/setup/create-admin")
+    public User createAdmin(@RequestBody @Validated NewUserDTO body, BindingResult validation) {
+        if (validation.hasErrors()) {
+            throw new BadRequestException(validation.getAllErrors());
+        }
+        return us.createUser(body, true);
     }
 
     @PostMapping("/normal")

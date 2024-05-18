@@ -103,7 +103,7 @@ public class DatabaseSeeder implements CommandLineRunner {
     private Product createProduct(String name, String description, BigDecimal price, String categoryName) {
         Category category = findOrCreateCategory(categoryName);
         Set<Platform> platforms = findOrCreatePlatforms(Arrays.asList("PC", "PlayStation 5"));
-        Set<Review> reviews = createReviews();  // Crea alcune recensioni di esempio
+        Set<Review> reviews = createReviews();
 
         Product product = new Product();
         product.setName(name);

@@ -1,8 +1,8 @@
 package MatteoOrlando.CapStone.controllers;
 
 import MatteoOrlando.CapStone.dto.PlatformDTO;
+import MatteoOrlando.CapStone.entities.Platform;
 import MatteoOrlando.CapStone.exceptions.BadRequestException;
-import MatteoOrlando.CapStone.exceptions.NotFoundException;
 import MatteoOrlando.CapStone.services.PlatformService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/platforms")
@@ -27,25 +28,27 @@ public class PlatformController {
         if (validation.hasErrors()) {
             throw new BadRequestException("Invalid platform data provided.");
         }
-        return platformService.savePlatform(platformDTO);
+        Platform platform = platformService.savePlatform(platformDTO);
+        return convertToDTO(platform);
     }
 
     @GetMapping("/{id}")
     public PlatformDTO getPlatformById(@PathVariable Long id) {
-        return platformService.findPlatformById(id);
+        Platform platform = platformService.findPlatformById(id);
+        return convertToDTO(platform);
     }
 
     @GetMapping("/name/{name}")
     public PlatformDTO getPlatformByName(@PathVariable String name) {
-        return platformService.findPlatformByName(name);
+        Platform platform = platformService.findPlatformByName(name);
+        return convertToDTO(platform);
     }
 
     @GetMapping
     public List<PlatformDTO> getAllPlatforms() {
-        return platformService.findAllPlatforms();
+        List<Platform> platforms = platformService.findAllPlatforms();
+        return platforms.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
-
-
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -53,7 +56,8 @@ public class PlatformController {
         if (validation.hasErrors()) {
             throw new BadRequestException("Invalid platform data provided.");
         }
-        return platformService.updatePlatform(id, platformDTO);
+        Platform platform = platformService.updatePlatform(id, platformDTO);
+        return convertToDTO(platform);
     }
 
     @DeleteMapping("/{id}")
@@ -61,5 +65,9 @@ public class PlatformController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePlatform(@PathVariable Long id) {
         platformService.deletePlatform(id);
+    }
+
+    private PlatformDTO convertToDTO(Platform platform) {
+        return new PlatformDTO(platform.getId(), platform.getName());
     }
 }

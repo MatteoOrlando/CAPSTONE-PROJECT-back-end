@@ -19,14 +19,6 @@ public class Platform {
     @Column(nullable = false)
     private String name;
 
-    @ManyToMany
-    @JoinTable(
-            name = "platforms_products",
-            joinColumns = @JoinColumn(name = "platform_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
+    @ManyToMany(mappedBy = "platforms")
     private Set<Product> products;
-
-    public Platform() {
-    }
 }
