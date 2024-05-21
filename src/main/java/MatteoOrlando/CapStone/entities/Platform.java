@@ -1,5 +1,6 @@
 package MatteoOrlando.CapStone.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +20,7 @@ public class Platform {
     @Column(nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy = "platforms")
+    @JsonIgnore
+    @ManyToMany(mappedBy = "platforms", cascade = CascadeType.ALL)
     private Set<Product> products;
 }

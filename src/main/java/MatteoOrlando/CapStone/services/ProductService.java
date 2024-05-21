@@ -45,6 +45,7 @@ public class ProductService {
         product.setDescription(productDTO.description());
         product.setPrice(productDTO.price());
 
+
         Category category = categoryDAO.findById(productDTO.categoryId())
                 .orElseThrow(() -> new NotFoundException("Category not found with id: " + productDTO.categoryId()));
         product.setCategory(category);

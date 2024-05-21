@@ -15,6 +15,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableMethodSecurity
@@ -26,16 +27,7 @@ public class SecurityConfig {
         httpSecurity.csrf(http -> http.disable());
         httpSecurity.sessionManagement(http -> http.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         httpSecurity.cors(Customizer.withDefaults());
-        httpSecurity.authorizeHttpRequests(auth -> auth
-                //.requestMatchers("/setup/**").permitAll() // Permetti l'accesso agli endpoint di setup
-                .requestMatchers("/auth/**").permitAll()
-                .requestMatchers("/products/**").permitAll()
-                .requestMatchers("/categories/**").permitAll()
-                .requestMatchers("/platforms/**").permitAll()
-                .requestMatchers("/review/**").permitAll()
-                .requestMatchers("/orders/**").permitAll()
-                .requestMatchers("/users/admin/**").permitAll()
-                .anyRequest().authenticated());
+        httpSecurity.authorizeHttpRequests(http -> http.requestMatchers("/**").permitAll());
         return httpSecurity.build();
     }
 
@@ -47,11 +39,13 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
-        config.setAllowedMethods(Arrays.asList("*"));
-        config.setAllowedHeaders(Arrays.asList("*"));
-        UrlBasedCorsConfigurationSource src = new UrlBasedCorsConfigurationSource();
-        src.registerCorsConfiguration("/**", config);
-        return src;
+        config.setAllowedOrigins(Arrays.asList("http://localhost:3000")); // Aggiungi il dominio del tuo frontend
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Permetti metodi necessari
+        config.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type")); // Specifica quali headers possono essere usati nella richiesta
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config); // Applica la configurazione CORS a tutte le routes
+        return source;
     }
+
 }

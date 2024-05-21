@@ -18,11 +18,12 @@ public class DeleteProductRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        if (args.containsOption("deleteAllProducts")) {
+        long count = productDAO.count();
+        if (count > 50) {
             productDAO.deleteAll();
         } else {
             Random random = new Random();
-            for (int i = 1; i <= 2; i++) {
+            for (int i = 1; i <= 10; i++) {
                 Product product = new Product();
                 product.setName("Product " + i);
                 product.setDescription("Description for Product " + i);
@@ -32,7 +33,7 @@ public class DeleteProductRunner implements ApplicationRunner {
                 category.setId(1L);
                 product.setCategory(category);
 
-                productDAO.save(product);
+                productDAO.delete(product);
             }
         }
     }

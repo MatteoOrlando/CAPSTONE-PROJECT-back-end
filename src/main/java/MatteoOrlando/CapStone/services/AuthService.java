@@ -29,4 +29,12 @@ public class AuthService {
             throw new UnauthorizedException("Credenziali non valide, riprova il log in!");
         }
     }
+    public String login(UserLoginDTO payload) {
+        User found = this.us.findByEmail(payload.email());
+        if (found == null){
+            throw new UnauthorizedException("User " + payload.email() + " has not been found");
+        }else if (!bcrypt.matches(payload.password(), found.getPassword()))
+            throw new UnauthorizedException("Password is wrong");
+        return jt.createToken(found);
+    }
 }

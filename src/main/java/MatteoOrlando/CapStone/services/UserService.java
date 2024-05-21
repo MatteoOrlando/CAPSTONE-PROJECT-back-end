@@ -76,7 +76,7 @@ public class UserService {
                         throw new RuntimeException(e);
                     }
                 });
-        User newUser = new User(body.username(), body.email(), bcrypt.encode(body.password()), body.name(), body.surname(), body.userType());
+        User newUser = new User(body.username(), body.email(), bcrypt.encode(body.password()), body.name(), body.surname(), UserType.USER);
         return this.ud.save(newUser);
     }
 
