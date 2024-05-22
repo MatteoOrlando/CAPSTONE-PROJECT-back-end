@@ -1,8 +1,6 @@
 package MatteoOrlando.CapStone.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -26,6 +24,9 @@ public class Product {
     @Column(nullable = false)
     private BigDecimal price;
 
+    @Column(nullable = false)
+    private String imageUrl;
+
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     @JsonBackReference
@@ -37,10 +38,9 @@ public class Product {
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "platform_id")
     )
-
     private Set<Platform> platforms;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Review> reviews;
 }
 

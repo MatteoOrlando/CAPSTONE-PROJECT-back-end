@@ -1,13 +1,17 @@
 package MatteoOrlando.CapStone.services;
 
 import MatteoOrlando.CapStone.dto.ProductDTO;
+import MatteoOrlando.CapStone.dto.ReviewDTO;
 import MatteoOrlando.CapStone.entities.Platform;
 import MatteoOrlando.CapStone.entities.Product;
+import MatteoOrlando.CapStone.entities.Review;
+import MatteoOrlando.CapStone.entities.User;
 import MatteoOrlando.CapStone.entities.Category;
 import MatteoOrlando.CapStone.exceptions.NotFoundException;
 import MatteoOrlando.CapStone.repositories.ProductDAO;
 import MatteoOrlando.CapStone.repositories.CategoryDAO;
 import MatteoOrlando.CapStone.repositories.PlatformDAO;
+import MatteoOrlando.CapStone.repositories.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,14 +31,23 @@ public class ProductService {
     @Autowired
     private PlatformDAO platformDAO;
 
+    @Autowired
+    private UserDAO userDAO;
+
     private ProductDTO convertToDTO(Product product) {
+        Set<ReviewDTO> reviews = product.getReviews().stream()
+                .map(review -> new ReviewDTO(review.getId(), review.getUser().getId(), review.getProduct().getId(), review.getRating(), review.getContent()))
+                .collect(Collectors.toSet());
+
         return new ProductDTO(
                 product.getId(),
                 product.getName(),
                 product.getDescription(),
                 product.getPrice(),
                 product.getCategory().getId(),
-                product.getPlatforms()
+                product.getPlatforms(),
+                product.getImageUrl(),
+                reviews
         );
     }
 
@@ -44,7 +57,7 @@ public class ProductService {
         product.setName(productDTO.name());
         product.setDescription(productDTO.description());
         product.setPrice(productDTO.price());
-
+        product.setImageUrl(productDTO.imageUrl());
 
         Category category = categoryDAO.findById(productDTO.categoryId())
                 .orElseThrow(() -> new NotFoundException("Category not found with id: " + productDTO.categoryId()));
@@ -55,6 +68,24 @@ public class ProductService {
                         .orElseThrow(() -> new NotFoundException("Platform not found with id: " + platformDTO.getId())))
                 .collect(Collectors.toSet());
         product.setPlatforms(platforms);
+
+        Set<Review> reviews = productDTO.reviews().stream()
+                .map(reviewDTO -> {
+                    Review review = new Review();
+                    review.setId(reviewDTO.id());
+                    review.setContent(reviewDTO.comment());
+                    review.setRating(reviewDTO.rating());
+
+                    User user = userDAO.findById(reviewDTO.userId())
+                            .orElseThrow(() -> new NotFoundException("User not found with id: " + reviewDTO.userId()));
+                    review.setUser(user);
+
+                    review.setProduct(product);
+
+                    return review;
+                })
+                .collect(Collectors.toSet());
+        product.setReviews(reviews);
 
         return product;
     }
@@ -88,6 +119,7 @@ public class ProductService {
         Product savedProduct = productDAO.save(product);
         return convertToDTO(savedProduct);
     }
+
 
     public ProductDTO updateProduct(Long id, ProductDTO productDTO) {
         if (!productDAO.existsById(id)) {

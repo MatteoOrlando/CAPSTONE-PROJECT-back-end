@@ -35,4 +35,10 @@ public class CartService {
     public List<CartItem> getCartItems(User user) {
         return cartItemRepository.findByUser(user);
     }
+
+    public void removeFromCart(User user, Long productId) {
+        CartItem cartItem = cartItemRepository.findByUserIdAndProductId(user.getId(), productId)
+                .orElseThrow(() -> new RuntimeException("Cart item not found"));
+        cartItemRepository.delete(cartItem);
+    }
 }

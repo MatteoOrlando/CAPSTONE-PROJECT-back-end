@@ -31,8 +31,12 @@ public class JWTFilter extends OncePerRequestFilter {
                                     @NotNull HttpServletResponse response,
                                     @NotNull FilterChain filterChain) throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
+
         if (authHeader == null ) {
+            System.out.println(request.getServletPath());
+            System.out.println(request.getContextPath());
             throw new UnauthorizedException("Please insert your token in Authorization Header");
+
         }
         String accessToken = authHeader.substring(7);
         jwtTools.verifyToken(accessToken);

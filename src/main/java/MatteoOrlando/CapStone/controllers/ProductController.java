@@ -2,7 +2,6 @@ package MatteoOrlando.CapStone.controllers;
 
 import MatteoOrlando.CapStone.dto.ProductDTO;
 import MatteoOrlando.CapStone.exceptions.BadRequestException;
-import MatteoOrlando.CapStone.exceptions.NotFoundException;
 import MatteoOrlando.CapStone.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -65,6 +64,4 @@ public class ProductController {
     public List<ProductDTO> getAllProducts() {
         return productService.getAllProducts();
     }
-
-
 }

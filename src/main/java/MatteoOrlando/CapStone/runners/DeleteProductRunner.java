@@ -6,6 +6,8 @@ import MatteoOrlando.CapStone.repositories.ProductDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -16,10 +18,15 @@ public class DeleteProductRunner implements ApplicationRunner {
     @Autowired
     private ProductDAO productDAO;
 
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
     @Override
     public void run(ApplicationArguments args) {
+        addImageUrlColumnIfNotExists();
+
         long count = productDAO.count();
-        if (count > 50) {
+        if (count >= 50) {
             productDAO.deleteAll();
         } else {
             Random random = new Random();
@@ -35,6 +42,16 @@ public class DeleteProductRunner implements ApplicationRunner {
 
                 productDAO.delete(product);
             }
+        }
+    }
+
+    private void addImageUrlColumnIfNotExists() {
+        String checkColumnExistsQuery = "SELECT column_name FROM information_schema.columns WHERE table_name='products' AND column_name='image_url'";
+        Boolean columnExists = jdbcTemplate.query(checkColumnExistsQuery, (ResultSetExtractor<Boolean>) rs -> rs.next());
+
+        if (Boolean.FALSE.equals(columnExists)) {
+            String addColumnQuery = "ALTER TABLE products ADD COLUMN image_url VARCHAR(255) DEFAULT 'default_image_url.jpg'";
+            jdbcTemplate.execute(addColumnQuery);
         }
     }
 }*/

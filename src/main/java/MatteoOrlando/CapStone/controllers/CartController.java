@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -27,5 +28,15 @@ public class CartController {
     @GetMapping
     public List<CartItem> getCartItems(@AuthenticationPrincipal User user) {
         return cartService.getCartItems(user);
+    }
+
+    @DeleteMapping("/{productId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removeFromCart(@AuthenticationPrincipal User user, @PathVariable Long productId) {
+        try {
+            cartService.removeFromCart(user, productId);
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cart item not found", e);
+        }
     }
 }

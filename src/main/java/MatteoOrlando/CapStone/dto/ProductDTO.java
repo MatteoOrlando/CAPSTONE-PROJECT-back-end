@@ -4,8 +4,8 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-
 import java.math.BigDecimal;
+import java.util.Set;
 
 public record ProductDTO(
         Long id,
@@ -20,5 +20,8 @@ public record ProductDTO(
         @NotNull(message = "Category ID is required")
         Long categoryId,
         @NotNull(message = "Platform is required")
-        java.util.Set<MatteoOrlando.CapStone.entities.Platform> platforms) {
-}
+        Set<MatteoOrlando.CapStone.entities.Platform> platforms,
+        String imageUrl,
+
+        Set<ReviewDTO> reviews
+) {}

@@ -6,17 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="74cc8c03-2b3e-4050-828e-20b663c47e3c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/dto/NewUserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/dto/NewUserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/entities/Platform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/entities/Platform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/CartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/controllers/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/dto/ProductDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/dto/ProductDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/entities/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/entities/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/runners/DatabaseSeeder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/runners/DatabaseSeeder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/entities/Review.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/entities/Review.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/CartItemDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/repositories/CartItemDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/runners/DeleteProductRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/runners/DeleteProductRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/security/JWTFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/security/JWTFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/CartService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MatteoOrlando/CapStone/services/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +86,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;testing&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/Desktop/epicode-it-u5-d11-0723-main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/Desktop/BW-U5-TEAM6&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.rainbow.brackets.disable.when&quot;
   }
 }</component>
